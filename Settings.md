@@ -1,27 +1,38 @@
 # Extra Settings
 
+## Clang Tools
+
 We will use clang-format and clang-tidy.
 
-Clang-format: Formatter tool for source code
-Clang-tidy: Checks for issues in the code (similar to the compiler warnings)
+Clang-format: Formatter tool for source code  
+Clang-tidy: Checks for issues in the code (similar to the compiler warnings)  
 
-## Install on Windows
+### Install on Windows
 
 - Go to: <https://github.com/llvm/llvm-project/releases/tag/llvmorg-13.0.0>
 - Download and Install: LLVM-13.0.0-win64.exe
 
-## Install on Linux
+### Install on Linux
 
 ```bash
 sudo apt-get install clang-format
 sudo apt-get install clang-tidy
 ```
 
-## Install on Mac
+### Install on Mac
 
 - Should be installed already
 
-## Extra settings (for local .vscode/settings.json file)
+## IDE: Visual Studio Code
+
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+### VSCode Extensions
+
+- Coding Tools Extension Pack (franneck94)
+- C/C++ Extension Pack (franneck94)
+
+### Extra settings (for local .vscode/settings.json file)
 
 ```json
   "C_Cpp_Runner.cCompilerPath": "/usr/bin/gcc-10",  // Edit this
