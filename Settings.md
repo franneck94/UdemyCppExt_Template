@@ -21,7 +21,13 @@ sudo apt-get install clang-tidy
 
 ### Install on Mac
 
-- Should be installed already
+- clang-format nad clang-tidy should be installed already
+
+## Compiler
+
+- Windows: g++, gdb, make via [Cygwin64](https://cygwin.com/install.html)
+- Linux: g++, gdb, make via package manager (apt for Ubuntu for example)
+- Mac: clang++, lldb, make via xcode-tools
 
 ## IDE: Visual Studio Code
 
