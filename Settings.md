@@ -35,10 +35,6 @@ sudo apt-get install clang-tidy
 ### Extra settings (for local .vscode/settings.json file)
 
 ```json
-  "C_Cpp_Runner.cCompilerPath": "/usr/bin/gcc-10",  // Edit this
-  "C_Cpp_Runner.cppCompilerPath": "/usr/bin/g++-10",  // Edit this
-  "C_Cpp_Runner.debuggerPath": "/usr/bin/gdb",  // Edit this
-  "C_Cpp_Runner.makePath": "/usr/bin/make",  // Edit this
   "C_Cpp_Runner.warnings": [
     "-Wall",
     "-Wextra",
