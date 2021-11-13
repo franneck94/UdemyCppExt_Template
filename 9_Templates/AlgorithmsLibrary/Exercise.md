@@ -1,25 +1,18 @@
 # Exercise
 
-Implement the following functions:
+Implement the functions from chapter 7 as template functions:
 
 ```cpp
-template <class InputIter1, class InputIter2>
-bool equal(InputIter1 first1, InputIter1 last1, InputIter2 first2);
+bool equal(Iterator first1, Iterator last1, Iterator first2);
 
-template <class OutputIter, class Size, class T>
-OutputIter fill_n(OutputIter first, Size count, const T &value);
+Iterator fill_n(Iterator first, std::size_t count, const std::int32_t &value);
 
-template <class ForwardIter, class T>
-void iota(ForwardIter first, ForwardIter last, T value);
+void iota(Iterator first, Iterator last, std::int32_t value);
 
-template <class InputIter, class OutputIter>
-OutputIter copy(InputIter first, InputIter last, OutputIter d_first);
+Iterator copy(Iterator first, Iterator last, Iterator d_first);
 
-template <class InputIter, class T>
-T accumulate(InputIter first, InputIter last, T init);
+std::int32_t accumulate(Iterator first, Iterator last, std::int32_t init);
 ```
-
-Transform the functions from chapter 7 to template functions.
 
 ## Main Function
 

@@ -16,18 +16,20 @@ bool is_upper_case(char character);
 bool is_lower_case(char character);
 ```
 
-These should return **true** or **false**.
+These functions should return **true** or **false**.
 
 Meaning of the function names:
 
-- Numeric: 0-9
-- Alpha (Alphabeth): a-z, A-Z
+- Numeric: 0-9 (digits)
+- Alpha: a-z, A-Z (alphabeth characters)
 - Upper Case: A-Z
 - Lower Case: a-z
 
 Note:
 
 The shift from Upper Case to Lower Case is 32.  
+
+E.g. 'A' -> 'a' by subtracting 32
 
 Afterward, implement the following conversion functions:
 

@@ -14,7 +14,7 @@ std::u32string      std::basic_string<char32_t>;
 We only want to allow std::string and std::wstring for our *library*.  
 For that, you have to create type_traits that will check whether the string/string_view is based on char/wchar.  
 
-Afterwards, implement the following template functions that will use the type_trait internally with a static_assert:
+Afterward, implement the following template functions that will use the type_trait internally with a static_assert:
 
 ```cpp
 template <typename StringType, typename ViewType>
@@ -42,9 +42,10 @@ int main()
     to_upper_case<std::wstring, std::wstring_view>(input_text_w);
     to_lower_case<std::wstring, std::wstring_view>(input_text_w);
 
-    // auto input_text_c = input_text.c_str();
-    // to_upper_case(input_text_c);
-    // to_lower_case(input_text_c);
+    // Should raise an assertion error
+    // auto input_text_u16 = std::u16string(input_text.begin(), input_text.end());
+    // to_upper_case<std::u16string, std::u16string_view>(input_text_w);
+    // to_lower_case<std::u16string, std::u16string_view>(input_text_w);
 
     return 0;
 }

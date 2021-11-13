@@ -26,7 +26,7 @@ std::int32_t accumulate(Iterator first, Iterator last, std::int32_t init);
 - fill_n: Fill the vector **n** times with the value **value** within the range $[first, last)$
 - iota: Fill the vector with incrementing the value **value** within the range $[first, last)$
 - copy: Copy the elements from one vector to the other vector
-- accumulate: Compute the sum of the vecotr within the range $[first, last)$
+- accumulate: Compute the sum of the vector within the range $[first, last)$
 
 ## Main Function
 

@@ -18,7 +18,7 @@ The class should have the following member variables:
 and the following member functions:
 
 - Default constructor
-- Default desctructor
+- Default destructor
 - Constructor that takes arguments for the member variables
 
 ## Main Function

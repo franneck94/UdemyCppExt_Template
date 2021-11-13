@@ -4,6 +4,8 @@
 #include <string_view>
 #include <vector>
 
+#include "Shape.hpp"
+
 using GrayscaleImage = std::vector<std::vector<std::uint8_t>>;
 
 class Image
@@ -27,6 +29,14 @@ public:
                    const std::uint32_t x2,
                    const std::uint32_t y2,
                    const std::uint8_t value);
+
+    void draw_rectangle(const Rectangle &rectangle, const std::uint8_t value);
+
+    void fill_rectangle(const Rectangle &rectangle, const std::uint8_t value);
+
+    void draw_circle(const Circle &circle, const std::uint8_t value);
+
+    void fill_circle(const Circle &circle, const std::uint8_t value);
 
 private:
     std::uint32_t m_width;

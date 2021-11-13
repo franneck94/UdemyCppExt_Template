@@ -20,7 +20,7 @@ Implement the formula in the function with $n$ = **num_iterations**.
 Then use a for-loop, to sum up, the value.
 At the end multiply with 4 before you return the value.
 
-$\frac{\pi}{4} = \sum_0^n: \frac{1}{(4k + 1)} - \frac{1}{(4k + 3)}$
+$\frac{\pi}{4} = \sum_0^n \frac{1}{(4k + 1)} - \frac{1}{(4k + 3)}$
 
 ## Decimal to Binary
 
@@ -30,7 +30,7 @@ E.g. the decimal number 142 would be 10001110 in binary.
 
 ## Optional: Decimal to Hex-Decimal
 
-Implement a function that prints out the hexa-decimal representation of the decimal (regular number) input.
+Implement a function that prints out the hexadecimal representation of the decimal (regular number) input.
 
 Note:
 
@@ -40,7 +40,7 @@ To print out a hexadecimal value of a **std::uint8_t** value use the following c
 std::cout << std::hex << std::uppercase << static_cast<std::uint32_t>(j) << std::dec;
 ```
 
-E.g. the decimal number 142 would be 8E in hexa-decimal.
+E.g. the decimal number 142 would be 8E in hexadecimal.
 
 To compute $2^i$ you can use:
 ```cpp

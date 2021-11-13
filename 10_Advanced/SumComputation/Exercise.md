@@ -1,17 +1,22 @@
 # Exercise
 
-Implement the following functions:
+Note: Based on Chapter 13 in the main course.
 
 ```cpp
-void random_vector(std::vector<int> &vec);
+#include "utils.hpp"
+#include "Timer.hpp"
 
 template <typename RandomIter>
-auto range_sum_asyn(RandomIter start, RandomIter stop);
+auto range_sum_asyn(RandomIter start, RandomIter stop)
+```
 
-template <typename RandomIter>
-void range_sum_thread_helper(RandomIter start, RandomIter stop, int &sum);
+Implement an async function that computes the sum of a container in the range of the **start** and **stop** iterator.  
+The function should launch several tasks within an async context.
 
-double range_sum_thread(const std::vector<int> &my_vector;
+E.g.
+
+```cpp
+std::async(std::launch::async, range_sum_asyn<RandomIter>, mid, stop);
 ```
 
 ## Main Function
@@ -31,12 +36,6 @@ int main()
         time1 += t1.elapsed_time<cpptiming::millisecs, double>();
     }
     std::cout << "Mean Async: " << time1 / NUM_RUNS << "ms sum: " << sum1 << std::endl;
-
-    double time2 = 0.0;
-    cpptiming::Timer t2;
-    auto sum2 = range_sum_thread(my_vector);
-    time2 += t2.elapsed_time<cpptiming::millisecs, double>();
-    std::cout << "Mean Threadding: " << time2 / 1 << "ms sum: " << sum2 << std::endl;
 
     return 0;
 }

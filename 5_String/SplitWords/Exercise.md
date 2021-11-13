@@ -20,7 +20,7 @@ Read in the text of the local **text.txt** file:
 auto text = readFile("C:/Users/Jan/Dropbox/_Coding/Udemy_CppExt/5_String/SplitWords/text.txt");
 ```
 
-- clean_text: Replace the following characters with nothing: ['.', ',', '!', '?', '\n', '\t]
+- clean_text: Replace the following characters with nothing: ['.', ',', '!', '?', '\n', '\t']
 - replace_all: Iterate over the string and replace all **what** entries with **with**
 - split_text: Split the text on every word => One entry in the resulting vector is one word
 
