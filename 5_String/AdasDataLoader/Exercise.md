@@ -1,13 +1,13 @@
 # Exercise
 
-For this exercise we want to load a data log of a fictional test drive of our autonomous car.
+For this exercise, we want to load a data log of a fictional test drive of our autonomous car.
 
 The collected data is stored in the **data** folder.
-There, the initial data of out ego vehicle is stored in **ego_data.json**, and the data of the other vehicles is stored in **vehicle_data.json**.
+There, the initial data of our ego vehicle is stored in **ego_data.json**, and the data of the other vehicles is stored in **vehicle_data.json**.
 
-To read in the json data we will use the most used C++ JSON library called **nlohman/json**. For this there is the header-only library file in **nlohman**.
+To read in the json data we will use the most used C++ JSON library called **nlohman/json**. For this, there is the header-only library file in the **nlohman** subdirectory.
 
-Delete the following functions from the **AdFunctions.cc** file:
+Delete the following functions from the previous **AdFunctions.cc** file:
 
 ```cpp
 void init_ego_vehicle(VehicleType &ego_vehicle);
@@ -35,7 +35,7 @@ Note:
         std::vector<std::vector<VehicleType>>(NUM_VEHICLES, std::vector<VehicleType>(NUM_ITERATIONS));
     ```
 
-Afterwards implement the following function:
+Afterwards, implement the following function:
 
 ```cpp
 void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles);
@@ -43,6 +43,26 @@ void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles);
 
 There you will take the other vehicle data (the static struct from above).
 Use the current **cycle** index to get the data from the correct cycle and store it into the **vehicles** struct.
+
+## JSON Library Example
+
+For example the **ego_data.json** file has the content:
+
+```json
+{
+    "Lane": 2,
+    "Speed": 33.010941520630475
+}
+```
+
+To load the whole object, use the following code:
+
+```cpp
+std::ifstream ifs("ego_data.json");
+json parsed_data = json::parse(ifs);
+
+float speed_value = parsed_data["Speed"];
+```
 
 ## Main Function
 
