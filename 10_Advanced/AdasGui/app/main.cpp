@@ -44,7 +44,7 @@ static void end_cycle(GLFWwindow *const window);
 
 static void reset_state(const fs::path &ego_filepath,
                         const fs::path &data_filepath,
-                        std::uint32_t &cycle,
+                        std::size_t &cycle,
                         VehicleType &ego_vehicle,
                         NeighborVehiclesType &vehicles)
 {
@@ -61,7 +61,7 @@ static void cycle(const fs::path &ego_filepath, const fs::path &data_filepath, G
     static bool pressed_replay = false;
 
     constexpr std::int64_t sleep_time = 50;
-    std::uint32_t cycle = 0;
+    std::size_t cycle = 0;
     VehicleType ego_vehicle{};
     NeighborVehiclesType vehicles{};
 
@@ -75,7 +75,8 @@ static void cycle(const fs::path &ego_filepath, const fs::path &data_filepath, G
 
         ImGui::NewFrame();
 
-        ImGui::SetNextWindowPos(ImVec2(0, 0));
+        ImGui::SetNextWindowPos(ImVec2(200, BELOW_LANES + BUTTON_OFFSET1 - BUTTON_OFFSET2));
+        ImGui::SetNextWindowSize(ImVec2(WINDOWS_WIDTH - BUTTON_OFFSET1, WINDOWS_HEIGHT - BELOW_LANES + BUTTON_OFFSET1));
         if (ImGui::Begin("ButtonWindow",
                          nullptr,
                          ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground |
@@ -174,7 +175,11 @@ int main(int argc, char **argv)
 
     if (argc != 3)
     {
+#ifdef __APPLE__
+        data_filepath /= fs::current_path().parent_path();
+#else
         data_filepath /= fs::current_path().parent_path().parent_path();
+#endif
         data_filepath /= "data";
         ego_filepath = data_filepath;
 

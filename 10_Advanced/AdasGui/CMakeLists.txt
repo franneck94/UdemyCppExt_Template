@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 
 set(PROJECT "AdasGui")
-project(${PROJECT} VERSION 0.1.0 LANGUAGES CXX)
+project(${PROJECT} VERSION 0.1.0 LANGUAGES CXX C)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD              17)
@@ -40,12 +40,12 @@ add_executable(${EXE_NAME}
 target_set_warnings(TARGET ${EXE_NAME} ENABLE ON AS_ERROR OFF)
 
 target_include_directories(${EXE_NAME} PUBLIC "imgui/")
-target_link_libraries(${EXE_NAME} ${IMGUI_LIB} "${CMAKE_DL_LIBS}")
+target_link_libraries(${EXE_NAME} PUBLIC ${IMGUI_LIB} "${CMAKE_DL_LIBS}")
 target_include_directories(${EXE_NAME} PUBLIC "glad/include")
-target_link_libraries(${EXE_NAME} ${GLAD_LIB} "${CMAKE_DL_LIBS}")
-target_link_libraries(${EXE_NAME} ${GLFW_LIB} "${GLFW_LIBRARIES}")
+target_link_libraries(${EXE_NAME} PUBLIC ${GLAD_LIB} "${CMAKE_DL_LIBS}")
+target_link_libraries(${EXE_NAME} PUBLIC ${GLFW_LIB} "${GLFW_LIBRARIES}")
 target_include_directories(${EXE_NAME} PUBLIC "glfw/include")
 target_compile_definitions(${EXE_NAME} PUBLIC "GLFW_INCLUDE_NONE")
 target_include_directories(${EXE_NAME} PUBLIC "implot")
-target_link_libraries(${EXE_NAME} ${IMPLOT_LIB} "${CMAKE_DL_LIBS}")
-target_link_libraries(${EXE_NAME} ${ADAS_LIB} "${CMAKE_DL_LIBS}")
+target_link_libraries(${EXE_NAME} PUBLIC ${IMPLOT_LIB} "${CMAKE_DL_LIBS}")
+target_link_libraries(${EXE_NAME} PUBLIC ${ADAS_LIB} "${CMAKE_DL_LIBS}")

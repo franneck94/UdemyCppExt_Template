@@ -60,7 +60,7 @@ void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles)
     vehicles.vehicles_right_lane[1] = vehicles_data[5][0];
 }
 
-void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles)
+void load_cycle(const std::size_t cycle, NeighborVehiclesType &vehicles)
 {
     vehicles.vehicles_left_lane[0].speed_mps = vehicles_data[0][cycle].speed_mps;
     vehicles.vehicles_left_lane[1].speed_mps = vehicles_data[1][cycle].speed_mps;

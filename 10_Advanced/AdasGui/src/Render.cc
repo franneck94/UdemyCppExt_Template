@@ -1,7 +1,5 @@
 #include <algorithm>
 #include <array>
-#include <cmath>
-#include <cstdio>
 
 #include "imgui.h"
 #include "implot.h"
@@ -11,7 +9,7 @@
 #include "Render.hpp"
 #include "RenderConstants.hpp"
 
-void render_cycle(std::uint32_t cycle, const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles)
+void render_cycle(std::size_t cycle, const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles)
 {
 }
 
@@ -27,6 +25,6 @@ void plot_table(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehi
 {
 }
 
-void plot_cycle_number(const std::uint32_t cycle)
+void plot_cycle_number(const std::size_t cycle)
 {
 }

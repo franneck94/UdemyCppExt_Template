@@ -10,4 +10,4 @@ void plot_vehicle_in_table(const VehicleType &vehicle, std::string_view position
 
 void plot_table(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles);
 
-void plot_cycle_number(const std::uint32_t cycle);
+void plot_cycle_number(const std::size_t cycle);
