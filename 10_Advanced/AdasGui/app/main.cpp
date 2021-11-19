@@ -175,10 +175,10 @@ int main(int argc, char **argv)
 
     if (argc != 3)
     {
-#ifdef __APPLE__
-        data_filepath /= fs::current_path().parent_path();
-#else
+#if defined(_MSC_VER)
         data_filepath /= fs::current_path().parent_path().parent_path();
+#else
+        data_filepath /= fs::current_path().parent_path();
 #endif
         data_filepath /= "data";
         ego_filepath = data_filepath;
