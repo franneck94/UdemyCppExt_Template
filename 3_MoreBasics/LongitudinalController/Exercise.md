@@ -3,29 +3,22 @@
 Update the following functions
 
 ```cpp
-void compute_future_distance(VehicleType &vehicle, const float ego_driven_distance, const float seconds);
-
 void print_scene(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles);
 ```
 
-- compute_future_distance: If the vehicle is further away than 100m, set the ID of the vehicle to INVALID_ID, which means the vehicle gets lost to the radars/cameras
 - print_scene:
   - Update the distance slices to 10m instead of 20m
   - Add at the bottom of the function the following console output
 
-<img src="../../media/vehicle2.png" alt="vehicle" style="width: 75%; height: 50%"/>
+<img src="../../media/vehicle2.png" alt="vehicle"/>
 
 Implement the following functions:
 
 ```cpp
-void longitudinal_control(const VehicleType &front_vehicle, const VehicleType &rear_vehicle, VehicleType &ego_vehicle);
+void longitudinal_control(const VehicleType &front_vehicle, VehicleType &ego_vehicle);
 ```
 
 If there is a vehicle in front of the ego vehicle and the distance is below half speed (kph, "halbe tacho"), the vehicle needs to slow down (brake pedal).
-
-If there is a vehicle in the rear of the ego vehicle and the distance is below half speed (kph, "halbe tacho"), the vehicle needs to accelerate (gas pedal).
-
-If the front and rear vehicles are both too close, adapt the speed regarding the closer vehicle.
 
 ## Main Function
 
@@ -62,7 +55,7 @@ int main()
 
         print_scene(ego_vehicle, vehicles);
         compute_future_state(ego_vehicle, vehicles, 0.100F);
-        longitudinal_control(vehicles.vehicles_center_lane[0], vehicles.vehicles_center_lane[1], ego_vehicle);
+        longitudinal_control(vehicles.vehicles_center_lane[0], ego_vehicle);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
