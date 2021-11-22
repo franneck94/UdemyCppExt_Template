@@ -8,9 +8,6 @@ Implement the following functions:
 double calculate_pi(std::uint32_t num_iterations);
 
 void print_dec_to_bin(std::uint8_t value);
-
-// Optional
-void print_dec_to_hex(std::uint8_t value);
 ```
 
 ## Calculate Pi
@@ -28,21 +25,10 @@ Implement a function that prints out the binary representation of the decimal (r
 
 E.g. the decimal number 142 would be 10001110 in binary.
 
-## Optional: Decimal to Hex-Decimal
-
-Implement a function that prints out the hexadecimal representation of the decimal (regular number) input.
-
-Note:
-
-To print out a hexadecimal value of a **std::uint8_t** value use the following code:
-
-```cpp
-std::cout << std::hex << std::uppercase << static_cast<std::uint32_t>(j) << std::dec;
-```
-
-E.g. the decimal number 142 would be 8E in hexadecimal.
+### Hint
 
 To compute $2^i$ you can use:
+
 ```cpp
 #include <cmath>
 
@@ -64,8 +50,5 @@ int main()
 
     std::uint8_t dec = 142;
     print_dec_to_bin(dec);
-
-    std::uint8_t hex = 142;
-    print_dec_to_hex(hex);
 }
 ```
