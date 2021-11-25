@@ -1,6 +1,6 @@
 # Exercise
 
-Implement the following functions:
+Adapt the function from Chapter 2 for a std::vector.
 
 ```cpp
 bool all_of(const std::vector<std::int32_t> &vector, const std::int32_t value);
@@ -10,11 +10,9 @@ bool any_of(const std::vector<std::int32_t> &vector, const std::int32_t value);
 bool none_of(const std::vector<std::int32_t> &vector, const std::int32_t value);
 
 std::size_t count(const std::vector<std::int32_t> &vector, const std::int32_t value);
-
-std::vector<std::int32_t> inclusive_scan(const std::vector<std::int32_t> &vector);
 ```
 
-Adapt the functions from Chapter 2 such that you use a for each loop to iterate over the vectors (except the inclusive_scan function).
+Note: If possible use a *for each loop* to iterate over the vectors.
 
 ## Main Function
 

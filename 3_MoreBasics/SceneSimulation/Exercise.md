@@ -18,10 +18,12 @@ void compute_future_state(const VehicleType &ego_vehicle,
 
 ![vehicle](../../media/vehicle.png)
 
-- compute_future_state: Compute the position of all vehicles in **n** seconds
-- compute_future_distance: Helper function for **compute_future_state**
+- compute_future_state
+  - Compute the position of all vehicles in **n** seconds
+- compute_future_distance
+  - Helper function for **compute_future_state**
 
-Hint: The future distance of a vehicle is dependent on the ego vehicle.
+Hint: The future distance of a vehicle is dependent on the ego vehicle, since the ego vehicle is always at the distance (x) = 0, hence the ego vehicle is the origin of the coordinate system.
 
 ## Main Function
 

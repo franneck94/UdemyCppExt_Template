@@ -8,7 +8,7 @@ void print_scene(const VehicleType &ego_vehicle, const NeighborVehiclesType &veh
 
 - print_scene:
   - Update the distance slices to 10m instead of 20m
-  - Add at the bottom of the function the following console output
+  - Add at the bottom of the function the speed of the ego vehicle
 
 <img src="../../media/vehicle2.png" alt="vehicle"/>
 
@@ -18,7 +18,8 @@ Implement the following functions:
 void longitudinal_control(const VehicleType &front_vehicle, VehicleType &ego_vehicle);
 ```
 
-If there is a vehicle in front of the ego vehicle and the distance is below half speed (kph, "halbe tacho"), the vehicle needs to slow down (brake pedal).
+If there is a vehicle in front of the ego vehicle and the distance is below half speed (kph, "halbe tacho"), the vehicle needs to slow down (brake pedal).  
+You can choose a value of the deceleration (braking).
 
 ## Main Function
 

@@ -14,13 +14,25 @@ std::size_t count(std::int32_t *array, std::size_t length, std::int32_t value);
 std::int32_t *inclusive_scan(std::int32_t *array, std::size_t length);
 ```
 
-- All Of: Returns true if all elements in the array are equal to the **value**
-- Any Of: Returns true if at least one element in the array is equal to the **value**
-- None Of: Returns true if all elements in the array are not equal to the **value**
-- Count: Counts the elements in the array that are equal to the **value**
-- Inclusive Scan:
-  - Sum up all elements in the array for index n from 0 to n - 1
-  - The result is stored in another array
+- All Of
+  - Returns true if all elements in the array are equal to the **value**
+  - E.g. all_of([1, 1, 1], 3, 1) => true
+  - E.g. all_of([1, 1, 2], 3, 1) => false
+- Any Of
+  - Returns true if at least one element in the array is equal to the **value**
+  - E.g. any_of([1, 1, 1], 3, 1) => true
+  - E.g. any_of([1, 1, 2], 3, 1) => true
+- None Of
+  - Returns true if all elements in the array are not equal to the **value**
+  - E.g. none_of([1, 1, 1], 3, 1) => false
+  - E.g. none_of([1, 1, 2], 3, 1) => false
+- Count
+  - Counts the elements in the array that are equal to the **value**
+  - E.g. count([1, 1, 1], 3, 1) => 3
+  - E.g. count([1, 1, 2], 3, 1) => 2
+- Inclusive Scan
+  - Sum up all elements in the array for index $n$ from 0 to $n-1$
+  - The result is stored and returned in a new array
   - Example:  
     [1, 2, 3] => [1, 3, 6]  
     [3, 4, 5] => [2, 7, 12]

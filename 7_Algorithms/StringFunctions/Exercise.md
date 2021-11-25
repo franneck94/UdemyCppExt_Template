@@ -19,14 +19,17 @@ std::size_t num_occurences(std::string_view str, std::string_view substr);
 } // namespace mystd
 ```
 
-- is_palindrom: Check if the string is a palindrome
-
-E.g. "anna" is a palindrome since the reversed string is the same.
-
-- starts_with: Check if the string starts with the substring
-- ends_with: Check if the string ends with the substring
-- contains: Check if the string contains the substring
-- num_occurences: Count how many times the substring is in the string
+- is_palindrom
+  - Check if the string is a palindrome
+  - E.g. "anna" is a palindrome since the reversed string is the same.
+- starts_with:
+  - Check if the string starts with the substring
+- ends_with:
+  - Check if the string ends with the substring
+- contains
+  - Check if the string contains the substring
+- num_occurences
+  - Count how many times the substring is in the string
 
 ## Main Function
 

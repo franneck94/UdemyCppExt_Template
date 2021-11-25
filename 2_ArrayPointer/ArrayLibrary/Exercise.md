@@ -12,14 +12,16 @@ void rotate_left(std::int32_t *array, std::size_t length);
 void rotate_right(std::int32_t *array, std::size_t length);
 ```
 
-- Unique Elements: Print out all elements that are unique in the array
-- Remove Duplicates:
+- Unique Elements
+  - Print out all unique elements (no duplicates) in the array
+- Remove Duplicates
   - Remove all duplicates in the array
-  - Remove means: move  the element to the end of the array and decrease the length of the array by one
-- Rotate Left:
+  - By Remove I mean
+    - move  the element to the end of the array and decrease the length of the array by one, hence the value is not used anymore
+- Rotate Left
   - Rotate all elements of the array to the left
   - Rotate Left: [1, 2, 3] => [2, 3, 1]  
-- Rotate Right:
+- Rotate Right
   - Rotate all elements of the array to the right
   - Rotate Right: [1, 2, 3] => [3, 1, 2]  
 

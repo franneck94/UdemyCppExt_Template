@@ -2,10 +2,11 @@
 
 For this exercise, we want to load a data log of a fictional test drive of our autonomous car.
 
-The collected data is stored in the **data** folder.
+The collected data is stored in the **data** folder.  
 There, the initial data of our ego vehicle is stored in **ego_data.json**, and the data of the other vehicles is stored in **vehicle_data.json**.
 
-To read in the json data we will use the most used C++ JSON library called **nlohman/json**. For this, there is the header-only library file in the **nlohman** subdirectory.
+To read in the json data we will use the most used C++ JSON library called **nlohman/json**.  
+For this, there is the header-only library file in the **nlohman** subdirectory.
 
 Delete the following functions from the previous **AdFunctions.cc** file:
 
@@ -41,7 +42,7 @@ Afterwards, implement the following function:
 void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles);
 ```
 
-There you will take the other vehicle data (the static struct from above).
+There you will take the other vehicle data (the static struct from above).  
 Use the current **cycle** index to get the data from the correct cycle and store it into the **vehicles** struct.
 
 ## JSON Library Example
@@ -62,6 +63,8 @@ std::ifstream ifs("ego_data.json");
 json parsed_data = json::parse(ifs);
 
 float speed_value = parsed_data["Speed"];
+
+std::cout << speed_value << std::endl; // 33.0109415
 ```
 
 ## Main Function

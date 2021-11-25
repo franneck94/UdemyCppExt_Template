@@ -18,18 +18,25 @@ fs::path link_files(FileVec source_files);
 void run(const fs::path &executable_path);
 ```
 
-- get_source_files_in_dir: Return a vector that stores all C++ source files in a folder
-- is_source_file: Checks if a file is a C++ source file
-- compile_file: Compile a single C++ source file
-- link_files: Link all compiled object files into an executable
-- run: Run the executable
+- get_source_files_in_dir
+  - Return a vector that stores all C++ source files in a folder
+- is_source_file
+  - Checks if a file is a C++ source file
+- compile_file
+  - Compile a single C++ source file
+- link_files
+  - Link all compiled object files into an executable
+- run
+  - Run the executable
 
 Important compiler commands:
 
-- g++ -c Main.cc -o Main.o
-- g++ Main.o -o Main
-- Run on Windows: Main.exe
-- Run on Unix: ./Main
+```bash
+g++ -c Main.cc -o Main.o
+g++ Main.o -o Main
+Run on Windows: Main.exe
+Run on Unix: ./Main
+```
 
 To run terminal commands from C++ program: **std::system()**
 

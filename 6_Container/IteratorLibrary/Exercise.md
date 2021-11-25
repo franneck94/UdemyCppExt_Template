@@ -16,10 +16,14 @@ It next(It it, DifferenceType n = 1);
 It prev(It it, DifferenceType n = 1);
 ```
 
-- advance: Step n-steps to the right (forward) with the iterator
-- distance: Compute the distance between two iterators of the same container
-- next: Step 1-step to the right (forward) with the iterator
-- prev: Step 1-step to the left (backward) with the iterator
+- advance
+  - Step n-steps to the right (forward) with the iterator
+- distance
+  - Compute the distance between two iterators of the same container
+- next
+  - Step 1-step to the right (forward) with the iterator
+- prev
+  - Step 1-step to the left (backward) with the iterator
 
 ## Main Function
 

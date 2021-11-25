@@ -1,6 +1,6 @@
 # Exercise
 
-In this exercise, you have to use the datatype **double** and **std::uint8_t** for certain computations.
+In this exercise, you have to use the datatypes **double** and **int** for certain computations.
 
 Implement the following functions:
 
@@ -14,16 +14,20 @@ void print_dec_to_bin(std::uint8_t value);
 
 With the following formula, you can compute $\frac{\pi}{4}$.  
 Implement the formula in the function with $n$ = **num_iterations**.  
-Then use a for-loop, to sum up, the value.
-At the end multiply with 4 before you return the value.
+Use a for-loop to sum up the values.
 
-$\frac{\pi}{4} = \sum_0^n \frac{1}{(4k + 1)} - \frac{1}{(4k + 3)}$
+$x = \frac{\pi}{4} = \sum_0^n \frac{1}{(4k + 1)} - \frac{1}{(4k + 3)}$
+
+At the end multiply by 4 before you return the value.  
+So the returned value will be an approximation of $\pi$ and not $\frac{\pi}{4}$.
 
 ## Decimal to Binary
 
-Implement a function that prints out the binary representation of the decimal (regular number) input.
+Implement a function that prints out the binary representation of the positive decimal input.
 
 E.g. the decimal number 142 would be 10001110 in binary.
+
+If you do not know how the binary system works, refer to the Wikipedia [link](https://en.wikipedia.org/wiki/Binary_number). Since this knowledge is not only important for this exercise but in general for a programmer.
 
 ### Hint
 
