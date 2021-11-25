@@ -27,9 +27,12 @@ Meaning of the function names:
 
 Note:
 
-The shift from Upper Case to Lower Case is 32.  
+The shift from **Upper Case** to **Lower Case** is 32 in the ASCII table.  
 
 E.g. 'A' -> 'a' by subtracting 32
+E.g. 'a' -> 'A' by adding 32
+
+You do not have to look up the ASCII table for this exercise, but you can do so.
 
 Afterward, implement the following conversion functions:
 
