@@ -7,7 +7,7 @@
 // #include <thread>
 // #include <vector>
 
-// #include "Timer.h"
+// #include "Timer.hpp"
 // #include "omp.h"
 
 // constexpr std::uint32_t NUM_THREADS = 8;
@@ -82,16 +82,6 @@
 //         time1 += t1.elapsed_time<cpptiming::millisecs, double>();
 //     }
 //     std::cout << "Mean Serial: " << time1 / NUM_RUNS << "ms sum: " << sum1 << std::endl;
-
-//     auto time2 = 0.0;
-//     volatile std::int32_t sum2 = 0;
-//     for (std::uint32_t i = 0; i < NUM_RUNS; ++i)
-//     {
-//         cpptiming::Timer t2;
-//         sum2 = serial_sum_unrolled(my_vector);
-//         time2 += t2.elapsed_time<cpptiming::millisecs, double>();
-//     }
-//     std::cout << "Mean Serial Unrolled: " << time2 / NUM_RUNS << "ms sum: " << sum2 << std::endl;
 
 //     auto time3 = 0.0;
 //     volatile auto sum3 = 0;
