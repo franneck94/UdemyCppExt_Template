@@ -31,8 +31,8 @@ std::int32_t *inclusive_scan(std::int32_t *array, std::size_t length);
   - E.g. count([1, 1, 1], 3, 1) => 3
   - E.g. count([1, 1, 2], 3, 1) => 2
 - Inclusive Scan
-  - Sum up all elements in the array for index $n$ from 0 to $n-1$
-  - The result is stored and returned in a new array
+  - Sum up all elements in the **array** for index $n$ from index 0 to $n$
+  - Store the result in a result array at index $n$
   - Example:  
     [1, 2, 3] => [1, 3, 6]  
     [3, 4, 5] => [2, 7, 12]
