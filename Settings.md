@@ -63,7 +63,9 @@ ln -s "/usr/local/opt/llvm/bin/clang-tidy" "/usr/local/bin/clang-tidy"
   "C_Cpp_Runner.includePaths": [
     "${workspaceFolder}/utils"
   ],
-  "C_Cpp_Runner.linkerArgs": [],
+  "C_Cpp_Runner.linkerArgs": [
+      "-lm"
+  ],
   "C_Cpp_Runner.cStandard": "c99",
   "C_Cpp_Runner.cppStandard": "c++17",
   "C_Cpp_Runner.excludeSearch": [],
