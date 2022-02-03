@@ -8,30 +8,31 @@ void print_scene(const VehicleType &ego_vehicle, const NeighborVehiclesType &veh
 LaneAssociationType longitudinal_control(const NeighborVehiclesType &vehicles,VehicleType &ego_vehicle);
 ```
 
-- print_scene: Such that the ego vehicle can be displayed on every lane not only the center lane.
+- print_scene: Such that the ego vehicle can be displayed on every lane not only the center lane
 - longitudinal_control:
-  - If we would crash with the front or rear vehicle, call the **get_lane_change_request** function.
-  - We don't pass in the front/rear vehicle anymore, instead of the whole array.
-    - Get the front/rear vehicle internally.
+  - We don't pass in the front vehicle anymore
+    - Get the front/rear vehicle internally **get_vehicle_array**
 
 Implement the following functions:
 
 ```cpp
-LaneAssociationType get_lane_change_request(const VehicleType &ego_vehicle,
-                                            const float front_distance,
-                                            const float rear_distance);
+const VehicleType *get_vehicle_array(const LaneAssociationType lane, const NeighborVehiclesType &vehicles);
 
-bool lateral_control(const NeighborVehiclesType &vehicles,
-                     const LaneAssociationType lane_change_request,
-                     VehicleType &ego_vehicle);
+LaneAssociationType get_lane_change_request(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles);
+
+bool lateral_control(const LaneAssociationType lane_change_request, VehicleType &ego_vehicle);
 ```
 
-- get_lane_change_request:
-  - Send a lane change request if the vehicle would crash into a front/rear vehicle
-    - Send a request to the left, if we are too close to the front vehicle (hence we are faster)
-    - Send a request to the right, if we are too close to the rear vehicle (hence we are slower)
-  - Checks if we can change the lane onto the target lane that was sent from the **get_lane_change_request** function
-  - Check the size of the gap on the target lane
+- get_vehicle_array
+  - Return the vehicle array for a certain lane
+- get_lane_change_request
+  - Send a lane change request if the vehicle would crash with the rear vehicle
+    - If there is enough space on the right lane, send a request
+    - Else If there is enough space on the left lane, send a request
+    - Else, don't do anything
+    - Check the size of the gap on the target lane
+- lateral_control
+  - If there is a request from **get_lane_change_request** do a lane change
 
 ## Main Function
 
@@ -67,23 +68,22 @@ int main()
         clear_console();
 
         print_scene(ego_vehicle, vehicles);
-        compute_future_state(ego_vehicle, vehicles, 0.050F);
-        const LaneAssociationType lane_change_request = longitudinal_control(vehicles, ego_vehicle);
-        const bool lane_change_successful = lateral_control(vehicles, lane_change_request, ego_vehicle);
+        compute_future_state(ego_vehicle, vehicles, 0.100F);
 
-        if (lane_change_request != ego_vehicle.lane)
+        const VehicleType *ego_lane_vehicles = get_vehicle_array(ego_vehicle.lane, vehicles);
+        longitudinal_control(ego_lane_vehicles[0], ego_vehicle);
+
+        const LaneAssociationType lane_change_request = get_lane_change_request(ego_vehicle, vehicles);
+        const bool lane_change_executed = lateral_control(lane_change_request, ego_vehicle);
+
+        if (lane_change_executed)
         {
-            std::cout << "Lane change request: " << static_cast<int>(lane_change_request) << std::endl;
-        }
-        if (lane_change_successful)
-        {
-            std::cout << "Lane change successull" << std::endl;
+            printf("Executed lane change!");
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
     return 0;
 }
-
 ```

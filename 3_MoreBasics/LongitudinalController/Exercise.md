@@ -15,11 +15,20 @@ void print_scene(const VehicleType &ego_vehicle, const NeighborVehiclesType &veh
 Implement the following functions:
 
 ```cpp
+float mps_to_kph(const float mps);
+
+void decrease_speed(VehicleType &ego_vehicle);
+
 void longitudinal_control(const VehicleType &front_vehicle, VehicleType &ego_vehicle);
 ```
 
-If there is a vehicle in front of the ego vehicle and the distance is below half speed (kph, "halbe tacho"), the vehicle needs to slow down (brake pedal).  
-You can choose a value of the deceleration (braking).
+- mps_to_kph
+  - Convert $\frac{m}{s}$ to $\frac{km}{h}$ value
+- longitudinal_control
+  - If there is a vehicle in front of the ego vehicle
+    - and the distance is below half speed (kph, "halbe tacho"), the vehicle needs to **decrease_speed**
+- decrease_speed
+  - Decrease the speed by the **LONGITUDINAL_DIFFERENCE_PERCENTAGE**
 
 ## Main Function
 

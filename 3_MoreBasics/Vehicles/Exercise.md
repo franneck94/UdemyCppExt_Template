@@ -41,6 +41,8 @@ struct NeighborVehiclesType
 Implement the following functions:
 
 ```cpp
+float kph_to_mps(const float kph);
+
 void init_ego_vehicle(VehicleType &ego_vehicle);
 
 void init_vehicles(NeighborVehiclesType &vehicles);
@@ -50,6 +52,8 @@ void print_vehicle(const VehicleType &vehicle);
 void print_neighbor_vehicles(const NeighborVehiclesType &vehicles);
 ```
 
+- kph_to_mps
+  - Convert kilometers/houtr to meters/second
 - init_ego_vehicle
   - Init ego vehicle with ID=-1, Speed=135kmh, Lane=Center
 - init_vehicles
