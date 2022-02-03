@@ -1,30 +1,13 @@
 # Exercise
 
-Update the following functions:
-
-```cpp
-void print_scene(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles);
-
-LaneAssociationType longitudinal_control(const NeighborVehiclesType &vehicles,VehicleType &ego_vehicle);
-```
-
-- print_scene: Such that the ego vehicle can be displayed on every lane not only the center lane
-- longitudinal_control:
-  - We don't pass in the front vehicle anymore
-    - Get the front/rear vehicle internally **get_vehicle_array**
-
 Implement the following functions:
 
 ```cpp
-const VehicleType *get_vehicle_array(const LaneAssociationType lane, const NeighborVehiclesType &vehicles);
-
 LaneAssociationType get_lane_change_request(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles);
 
 bool lateral_control(const LaneAssociationType lane_change_request, VehicleType &ego_vehicle);
 ```
 
-- get_vehicle_array
-  - Return the vehicle array for a certain lane
 - get_lane_change_request
   - Send a lane change request if the vehicle would crash with the rear vehicle
     - If there is enough space on the right lane, send a request
