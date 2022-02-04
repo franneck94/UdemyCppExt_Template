@@ -42,10 +42,9 @@ struct Rectangle : Shape
 };
 ```
 
-Implement the missing member functions for the Shape, Rectangle, and Circle 
-class.
+Implement the missing member functions for the Shape, Rectangle, and Circle class.
 
-Note: To compute the distance of two points you can use the **get_distance** function from **utils/distance.hpp**
+Note: To compute the distance of two points you can use the **get_distance** function from **distance.hpp**
 
 ## Main Function
 

@@ -1,6 +1,24 @@
 # Exercise
 
-Update the code such that we use *std::string*, *std::array* and *std::string_view*.
+Update the *AdFunctions* code such that we use *std::string* and *std::array*.  
+For this exercise, I would recommend not using any string_views.
+
+Update the following functions:
+
+```cpp
+char *get_ego_string(const VehicleType &ego_vehicle,
+                     char *left_string,
+                     char *center_string,
+                     char *right_string);
+
+const VehicleType *get_vehicle_array(const LaneAssociationType lane,
+                                     const NeighborVehiclesType &vehicles);
+```
+
+- get_ego_string
+  - Instead of **char \*** return a reference to a string
+- get_vehicle_array
+  - Instead of **VehicleType \*** return a reference to a vehicle type array
 
 ## Main Function
 
