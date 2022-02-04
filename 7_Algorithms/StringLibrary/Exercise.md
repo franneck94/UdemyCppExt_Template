@@ -28,13 +28,13 @@ int main()
     std::cout << "Please enter any result: ";
     std::cin >> input_text;
 
-    std::cout << "to_upper_case: " << to_upper_case(input_text) << std::endl;
-    std::cout << "to_lower_case: " << to_lower_case(input_text) << std::endl;
-    std::cout << "string_length: " << string_length(input_text) << std::endl;
-    std::cout << "char_search: " << char_search(input_text, 'a') << std::endl;
+    std::cout << "to_upper_case: " << to_upper_case(input_text) << '\n';
+    std::cout << "to_lower_case: " << to_lower_case(input_text) << '\n';
+    std::cout << "string_length: " << string_length(input_text) << '\n';
+    std::cout << "char_search: " << char_search(input_text, 'a') << '\n';
     std::cout << std::boolalpha;
-    std::cout << "equal(jan, jan): " << string_equal(input_text, compare_text1) << std::endl;
-    std::cout << "equal(jan, ja): " << string_equal(input_text, compare_text2) << std::endl;
+    std::cout << "equal(jan, jan): " << string_equal(input_text, compare_text1) << '\n';
+    std::cout << "equal(jan, ja): " << string_equal(input_text, compare_text2) << '\n';
 
     return 0;
 }

@@ -130,11 +130,11 @@ static void cycle(const fs::path &ego_filepath, const fs::path &data_filepath, G
 
             if (lane_change_request != ego_vehicle.lane)
             {
-                std::cout << "Lane change request: " << static_cast<int>(lane_change_request) << std::endl;
+                std::cout << "Lane change request: " << static_cast<int>(lane_change_request) << '\n';
             }
             if (lane_change_successful)
             {
-                std::cout << "Lane change successull" << std::endl;
+                std::cout << "Lane change successull" << '\n';
             }
 
             cycle++;

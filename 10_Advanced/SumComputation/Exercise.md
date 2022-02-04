@@ -35,7 +35,7 @@ int main()
         sum1 = range_sum_asyn(my_vector.begin(), my_vector.end());
         time1 += t1.elapsed_time<cpptiming::millisecs, double>();
     }
-    std::cout << "Mean Async: " << time1 / NUM_RUNS << "ms sum: " << sum1 << std::endl;
+    std::cout << "Mean Async: " << time1 / NUM_RUNS << "ms sum: " << sum1 << '\n';
 
     return 0;
 }

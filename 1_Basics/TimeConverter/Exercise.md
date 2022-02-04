@@ -47,13 +47,13 @@ int main()
     float Hours2 = convert_milliseconds_to_hours(Input_milliseconds);
     float Hours3 = convert_seconds_to_hours(seconds);
 
-    std::cout << "seconds: " << seconds << std::endl;
-    std::cout << "Minutes: " << Minutes << std::endl;
-    std::cout << "Hours: " << Hours << std::endl;
+    std::cout << "seconds: " << seconds << '\n';
+    std::cout << "Minutes: " << Minutes << '\n';
+    std::cout << "Hours: " << Hours << '\n';
 
-    std::cout << "Minutes2: " << Minutes2 << std::endl;
-    std::cout << "Hours2: " << Hours2 << std::endl;
-    std::cout << "Hours3: " << Hours3 << std::endl;
+    std::cout << "Minutes2: " << Minutes2 << '\n';
+    std::cout << "Hours2: " << Hours2 << '\n';
+    std::cout << "Hours3: " << Hours3 << '\n';
 
     return 0;
 }

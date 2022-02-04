@@ -58,17 +58,17 @@ int main(int argc, char **argv)
     const auto number_sources = number_of_source_files(all_files);
     const auto number_headers = number_of_header_files(all_files);
 
-    std::cout << number_sources << std::endl;
-    std::cout << number_headers << std::endl;
+    std::cout << number_sources << '\n';
+    std::cout << number_headers << '\n';
 
     for (const auto &file : all_files)
     {
-        std::cout << "File: " << file << std::endl;
+        std::cout << "File: " << file << '\n';
         std::cout << std::boolalpha;
-        std::cout << "is_c_header_file: " << is_c_header_file(file) << std::endl;
-        std::cout << "is_c_source_file: " << is_c_source_file(file) << std::endl;
-        std::cout << "is_cpp_header_file: " << is_cpp_header_file(file) << std::endl;
-        std::cout << "is_cpp_source_file: " << is_cpp_source_file(file) << std::endl << std::endl;
+        std::cout << "is_c_header_file: " << is_c_header_file(file) << '\n';
+        std::cout << "is_c_source_file: " << is_c_source_file(file) << '\n';
+        std::cout << "is_cpp_header_file: " << is_cpp_header_file(file) << '\n';
+        std::cout << "is_cpp_source_file: " << is_cpp_source_file(file) << std::endl << '\n';
     }
 }
 ```

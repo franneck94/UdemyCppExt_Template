@@ -58,10 +58,10 @@ int main()
     Rectangle rectangle1(100, 100, 150, 150);
     Rectangle rectangle2(300, 300, 350, 350);
 
-    std::cout << "Distance c1-c2: " << circle1.midpoint_distance(&circle2) << std::endl;
-    std::cout << "Distance c1-r1: " << circle1.midpoint_distance(&rectangle1) << std::endl;
-    std::cout << "Distance r1-r2: " << rectangle1.midpoint_distance(&rectangle2) << std::endl;
-    std::cout << "Distance r1-x2: " << rectangle1.midpoint_distance(&circle2) << std::endl;
+    std::cout << "Distance c1-c2: " << circle1.midpoint_distance(&circle2) << '\n';
+    std::cout << "Distance c1-r1: " << circle1.midpoint_distance(&rectangle1) << '\n';
+    std::cout << "Distance r1-r2: " << rectangle1.midpoint_distance(&rectangle2) << '\n';
+    std::cout << "Distance r1-x2: " << rectangle1.midpoint_distance(&circle2) << '\n';
 
     return 0;
 }

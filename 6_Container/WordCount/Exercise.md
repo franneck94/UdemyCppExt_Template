@@ -40,10 +40,10 @@ int main()
     current_path /= "text.txt";
 
     auto text = readFile(current_path.string());
-    std::cout << text << std::endl << std::endl;
+    std::cout << text << std::endl << '\n';
 
     clean_text(text);
-    std::cout << text << std::endl << std::endl;
+    std::cout << text << std::endl << '\n';
 
     auto splitted_text = split_text(text, ' ');
     print_vector(splitted_text);

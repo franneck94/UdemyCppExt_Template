@@ -36,10 +36,10 @@ int main()
 {
     auto text =
         readFile("C:/Users/Jan/Dropbox/_Coding/udemy_cppExt/6_Container/word_count/text.txt");
-    std::cout << text << std::endl << std::endl;
+    std::cout << text << std::endl << '\n';
 
     cleanText(text);
-    std::cout << text << std::endl << std::endl;
+    std::cout << text << std::endl << '\n';
 
     const auto splittedText = splitText(text, ' ');
     print_vector(splittedText);

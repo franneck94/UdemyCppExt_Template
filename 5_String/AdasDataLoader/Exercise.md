@@ -64,7 +64,7 @@ json parsed_data = json::parse(ifs);
 
 float speed_value = parsed_data["Speed"];
 
-std::cout << speed_value << std::endl; // 33.0109415
+std::cout << speed_value << '\n'; // 33.0109415
 ```
 
 ## Main Function
@@ -133,11 +133,11 @@ int main(int argc, char **argv)
 
         if (lane_change_request != ego_vehicle.lane)
         {
-            std::cout << "Lane change request: " << static_cast<int>(lane_change_request) << std::endl;
+            std::cout << "Lane change request: " << static_cast<int>(lane_change_request) << '\n';
         }
         if (lane_change_successful)
         {
-            std::cout << "Lane change successull" << std::endl;
+            std::cout << "Lane change successull" << '\n';
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50));

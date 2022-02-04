@@ -35,7 +35,7 @@ int main()
     std::int32_t array[]{1, 1, 2, 3, 3, 4};
     std::size_t length = 6;
 
-    std::cout << "unique_elements: " << std::endl;
+    std::cout << "unique_elements: " << '\n';
     unique_elements(array, length);
 
     remove_duplicates(array, length);

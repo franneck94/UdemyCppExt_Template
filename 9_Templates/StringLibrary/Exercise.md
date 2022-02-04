@@ -34,9 +34,9 @@ int main()
     std::cin >> input_text;
 
     std::cout << "to_upper_case: " << to_upper_case<std::string, std::string_view>(input_text)
-              << std::endl;
+              << '\n';
     std::cout << "to_lower_case: " << to_lower_case<std::string, std::string_view>(input_text)
-              << std::endl;
+              << '\n';
 
     auto input_text_w = std::wstring(input_text.begin(), input_text.end());
     to_upper_case<std::wstring, std::wstring_view>(input_text_w);

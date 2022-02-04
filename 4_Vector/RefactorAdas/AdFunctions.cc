@@ -158,8 +158,7 @@ void print_scene(const VehicleType &ego_vehicle, const NeighborVehiclesType &veh
             right_idx++;
         }
 
-        std::cout << i << "\t| " << left_string << " |" << center_string << " |" << right_string
-                  << " |\n";
+        std::cout << i << "\t| " << left_string << " |" << center_string << " |" << right_string << " |\n";
     }
 
     std::cout << "\n";
@@ -173,18 +172,14 @@ void print_vehicle_speed(const VehicleType &vehicle, const char *name)
     std::cout << name << ": (" << vehicle.speed_mps << " mps)";
 }
 
-void compute_future_distance(VehicleType &vehicle,
-                             const float ego_driven_distance_m,
-                             const float seconds)
+void compute_future_distance(VehicleType &vehicle, const float ego_driven_distance_m, const float seconds)
 {
     const float driven_distance_m = vehicle.speed_mps * seconds;
 
     vehicle.distance_m += driven_distance_m - ego_driven_distance_m;
 }
 
-void compute_future_state(const VehicleType &ego_vehicle,
-                          NeighborVehiclesType &vehicles,
-                          const float seconds)
+void compute_future_state(const VehicleType &ego_vehicle, NeighborVehiclesType &vehicles, const float seconds)
 {
     const float ego_driven_distance_m = ego_vehicle.speed_mps * seconds;
 
@@ -217,8 +212,7 @@ void longitudinal_control(const VehicleType &front_vehicle, VehicleType &ego_veh
     }
 }
 
-const VehicleType *get_vehicle_array(const LaneAssociationType lane,
-                                     const NeighborVehiclesType &vehicles)
+const VehicleType *get_vehicle_array(const LaneAssociationType lane, const NeighborVehiclesType &vehicles)
 {
     const VehicleType *vehicles_array = nullptr;
 
@@ -248,8 +242,7 @@ const VehicleType *get_vehicle_array(const LaneAssociationType lane,
     return vehicles_array;
 }
 
-LaneAssociationType get_lane_change_request(const VehicleType &ego_vehicle,
-                                            const NeighborVehiclesType &vehicles)
+LaneAssociationType get_lane_change_request(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles)
 {
     const VehicleType *ego_lane_vehicles = get_vehicle_array(ego_vehicle.lane, vehicles);
     const VehicleType *rear_vehicle = &ego_lane_vehicles[1];
@@ -270,8 +263,7 @@ LaneAssociationType get_lane_change_request(const VehicleType &ego_vehicle,
             const float abs_front_center_distance_m = std::abs(center_vehicles[0].distance_m);
             const float abs_rear_center_distance_m = std::abs(center_vehicles[1].distance_m);
 
-            if ((abs_front_center_distance_m > minimal_distance_m) &&
-                (abs_rear_center_distance_m > minimal_distance_m))
+            if ((abs_front_center_distance_m > minimal_distance_m) && (abs_rear_center_distance_m > minimal_distance_m))
             {
                 return target_lane;
             }
@@ -287,8 +279,7 @@ LaneAssociationType get_lane_change_request(const VehicleType &ego_vehicle,
             const float abs_front_right_distance_m = std::abs(right_vehicles[0].distance_m);
             const float abs_rear_right_distance_m = std::abs(right_vehicles[1].distance_m);
 
-            if ((abs_front_right_distance_m > minimal_distance_m) &&
-                (abs_rear_right_distance_m > minimal_distance_m))
+            if ((abs_front_right_distance_m > minimal_distance_m) && (abs_rear_right_distance_m > minimal_distance_m))
             {
                 return target_lane;
             }
@@ -299,8 +290,7 @@ LaneAssociationType get_lane_change_request(const VehicleType &ego_vehicle,
             const float abs_front_left_distance_m = std::abs(left_vehicles[0].distance_m);
             const float abs_rear_left_distance_m = std::abs(left_vehicles[1].distance_m);
 
-            if ((abs_front_left_distance_m > minimal_distance_m) &&
-                (abs_rear_left_distance_m > minimal_distance_m))
+            if ((abs_front_left_distance_m > minimal_distance_m) && (abs_rear_left_distance_m > minimal_distance_m))
             {
                 return target_lane;
             }

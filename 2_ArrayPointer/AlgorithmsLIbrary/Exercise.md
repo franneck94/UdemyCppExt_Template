@@ -48,11 +48,11 @@ int main()
     std::size_t length = 8;
 
     std::cout << std::boolalpha;
-    std::cout << "all_of: " << all_of(array, length, 5) << std::endl;
-    std::cout << "any_of: " << any_of(array, length, 5) << std::endl;
-    std::cout << "none_of: " << none_of(array, length, 5) << std::endl;
+    std::cout << "all_of: " << all_of(array, length, 5) << '\n';
+    std::cout << "any_of: " << any_of(array, length, 5) << '\n';
+    std::cout << "none_of: " << none_of(array, length, 5) << '\n';
     auto scan_values = inclusive_scan(array, length);
-    std::cout << "inclusive_scan: " << std::endl;
+    std::cout << "inclusive_scan: " << '\n';
     print_array(scan_values, length);
 
     delete[] scan_values;
