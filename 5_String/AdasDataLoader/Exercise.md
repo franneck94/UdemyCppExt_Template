@@ -112,8 +112,8 @@ int main(int argc, char **argv)
     VehicleType ego_vehicle{};
     NeighborVehiclesType vehicles{};
 
-    init_vehicles(data_filepath.c_str(), vehicles);
-    init_ego_vehicle(ego_filepath.c_str(), ego_vehicle);
+    init_vehicles(data_filepath.string(), vehicles);
+    init_ego_vehicle(ego_filepath.string(), ego_vehicle);
 
     print_vehicle(ego_vehicle);
     print_neighbor_vehicles(vehicles);
@@ -133,7 +133,7 @@ int main(int argc, char **argv)
 
         if (lane_change_request != ego_vehicle.lane)
         {
-            std::cout << "Lane change request: " << static_cast<int>(lane_change_request) << '\n';
+            std::cout << "Lane change request: " << static_cast<std::int32_t>(lane_change_request) << '\n';
         }
         if (lane_change_successful)
         {
