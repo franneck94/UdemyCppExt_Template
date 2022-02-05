@@ -19,9 +19,9 @@ void init_vehicles(NeighborVehiclesType &vehicles);
 and implement the following functions in the DataLoader.hpp/.cpp:
 
 ```cpp
-void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles);
-
 void init_ego_vehicle(std::string_view filepath, VehicleType &ego_vehicle);
+
+void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles);
 ```
 
 Instead of generating the data by just random numbers, you have to load the JSON data and fill it into the **vehicles** and **ego_vehicle** struct.
@@ -35,6 +35,10 @@ Note:
     static VehiclesData vehicles_data =
         std::vector<std::vector<VehicleType>>(NUM_VEHICLES, std::vector<VehicleType>(NUM_ITERATIONS));
     ```
+  - This struct holds for every vehicle (6 in total) and for every cycle one struct of the type *VehicleType*
+    - So there re $6 * 1000 = 6000$ *VehicleType* structs
+  - Every entry of this struct will then hold as usual the
+    - id, lane, speed_mps, distance_m
 
 Afterwards, implement the following function:
 
@@ -62,7 +66,7 @@ To load the whole object, use the following code:
 std::ifstream ifs("ego_data.json");
 json parsed_data = json::parse(ifs);
 
-float speed_value = parsed_data["Speed"];
+float speed_value = static_cast<float>(parsed_data["Speed"]);
 
 std::cout << speed_value << '\n'; // 33.0109415
 ```
@@ -101,10 +105,10 @@ int main(int argc, char **argv)
     }
     else
     {
-        auto vehicles_input_path = std::string(argv[1]);
+        const auto vehicles_input_path = std::string(argv[1]);
         data_filepath = fs::path(vehicles_input_path);
 
-        auto ego_input_path = std::string(argv[2]);
+        const auto ego_input_path = std::string(argv[2]);
         ego_filepath = fs::path(ego_input_path);
     }
 
@@ -127,7 +131,7 @@ int main(int argc, char **argv)
         clear_console();
 
         print_scene(ego_vehicle, vehicles);
-        compute_future_state(ego_vehicle, vehicles, 0.050F);
+        compute_future_state(ego_vehicle, vehicles, 0.100F);
         const auto lane_change_request = longitudinal_control(vehicles, ego_vehicle);
         const auto lane_change_successful = lateral_control(vehicles, lane_change_request, ego_vehicle);
 
@@ -140,7 +144,7 @@ int main(int argc, char **argv)
             std::cout << "Lane change successull" << '\n';
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         cycle++;
 
         load_cycle(cycle, vehicles);
