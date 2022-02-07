@@ -3,3 +3,7 @@
 #include "DataLoader.hpp"
 
 void render_cycle(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles);
+
+void plot_lanes(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles);
+
+void plot_table(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles);
