@@ -46,7 +46,19 @@ void reset_state(const fs::path &ego_filepath,
     init_vehicles(data_filepath.string(), vehicles);
 }
 
-void cycle(const fs::path &ego_filepath, const fs::path &data_filepath, GLFWwindow *const window)
+
+void plot_cycle_number(const std::size_t cycle)
+{
+    ImGui::SetNextWindowPos(ImVec2(0.0F, BELOW_LANES + CYCLE_OFFSET));
+    ImGui::SetNextWindowSize(ImVec2(CYCLE_NUMBER_WIDTH, CYCLE_NUMBER_HEIGHT));
+    if (ImGui::Begin("CycleWindow", nullptr, WINDOW_FLAGS_CLEAN))
+    {
+        ImGui::Text("Cycle: %d", static_cast<std::int32_t>(cycle));
+        ImGui::End();
+    }
+}
+
+void cycle_function(const fs::path &ego_filepath, const fs::path &data_filepath, GLFWwindow *const window)
 {
     static bool is_playing = false;
     static bool pressed_play = false;
@@ -69,7 +81,8 @@ void cycle(const fs::path &ego_filepath, const fs::path &data_filepath, GLFWwind
         ImGui::NewFrame();
 
         ImGui::SetNextWindowPos(ImVec2(200, BELOW_LANES + BUTTON_OFFSET1 - BUTTON_OFFSET2));
-        ImGui::SetNextWindowSize(ImVec2(WINDOWS_WIDTH - BUTTON_OFFSET1, WINDOWS_HEIGHT - BELOW_LANES + BUTTON_OFFSET1));
+        ImGui::SetNextWindowSize(
+            ImVec2(WINDOWS_WIDTH - BUTTON_OFFSET1, WINDOWS_HEIGHT - BELOW_LANES + BUTTON_OFFSET1));
 
         const auto button_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove |
                                   ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize |
@@ -117,7 +130,7 @@ void cycle(const fs::path &ego_filepath, const fs::path &data_filepath, GLFWwind
 
         if (!pressed_pause && is_playing && cycle < NUM_ITERATIONS)
         {
-            render_cycle(cycle, ego_vehicle, vehicles);
+            render_cycle(ego_vehicle, vehicles);
             compute_future_state(ego_vehicle, vehicles, 0.100F);
 
             const auto &ego_lane_vehicles = get_vehicle_array(ego_vehicle.lane, vehicles);
@@ -131,17 +144,19 @@ void cycle(const fs::path &ego_filepath, const fs::path &data_filepath, GLFWwind
         }
         else if (pressed_pause)
         {
-            render_cycle(cycle, ego_vehicle, vehicles);
+            render_cycle(ego_vehicle, vehicles);
             is_playing = false;
         }
         else if (!is_playing)
         {
-            render_cycle(0, ego_vehicle, vehicles);
+            render_cycle(ego_vehicle, vehicles);
         }
         else if (cycle >= NUM_ITERATIONS)
         {
             is_playing = false;
         }
+
+        plot_cycle_number(cycle);
 
         ImGui::Render();
 

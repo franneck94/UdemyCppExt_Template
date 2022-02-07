@@ -110,7 +110,7 @@ int main(int argc, char **argv)
     style.Colors[ImGuiCol_TableBorderStrong] = ImVec4(1.0, 1.0, 1.0, 1.0);
     style.Colors[ImGuiCol_TableBorderLight] = ImVec4(1.0, 1.0, 1.0, 1.0);
 
-    cycle(ego_filepath, data_filepath, window);
+    cycle_function(ego_filepath, data_filepath, window);
 
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
