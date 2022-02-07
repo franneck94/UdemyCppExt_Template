@@ -6,7 +6,7 @@
 
 ## Exercise
 
-For this new logic, add the files to the *src* folder
+The new code will be added to the following files
 
 - **Render.cpp**
 - **Render.hpp**
@@ -14,11 +14,10 @@ For this new logic, add the files to the *src* folder
 
 The GUI should display the following features:
 
-- For Left, Center, and Right Lane
-  - Scatter Plot with ImPlot
-    - Plot the position of the vehicles
-  - Tabular Plot with ImPlot
-    - Plot the ID, distance and speed of all vehicles
+- Scatter Plot with ImPlot
+  - Plot the position of the vehicles
+- Tabular Plot with ImPlot
+  - Plot the ID, distance and speed of all vehicles
 
 ```cpp
 // Scatter Plot
@@ -28,10 +27,23 @@ if (ImPlot::BeginPlot("##Lanes", PLOT_DIM, PLOT_FLAGS))
     ImPlot::SetupAxisLimits(ImAxis_X1, -MAX_VIEW_RANGE_M, MAX_VIEW_RANGE_M, ImGuiCond_Always);
     ImPlot::SetupAxisLimits(ImAxis_Y1, LEFT_LEFT_BORDER, LEFT_RIGHT_BORDER, ImGuiCond_Always);
 
-    // ImPlot::SetNextMarkerStyle(...); // See documentation
-    // ImPlot::PlotScatter(...); // See documentation
     // ...
 }
+```
+
+```cpp
+// Tabular Plot
+ if (ImGui::Begin("TableWindow", nullptr, WINDOW_FLAGS_CLEAN))
+    {
+        if (ImGui::BeginTable("Table", 5, ImGuiTableFlags_BordersV | ImGuiTableFlags_BordersOuter))
+        {
+            // ...
+
+            ImGui::EndTable();
+        }
+
+        ImGui::End();
+    }
 ```
 
 ![Example](./media/AdasGuiDescr.png)
