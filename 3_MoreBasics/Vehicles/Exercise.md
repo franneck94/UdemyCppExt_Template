@@ -3,15 +3,17 @@
 In this exercise, we start with a project that will be extended throughout the course.
 
 The use case is a "self-driving car" on a highway with three lanes (Left, Center, and Right lane).  
-The radars and cameras of your car detect other vehicles that are nearby your, so-called ego-, vehicle.
+Our car is the so-called ego vehicle.  
+The fictive *radars* and *cameras* of the ego vehicle detect other vehicles that are nearby.  
+In total there will be 2 nearby cars on the left, 2 cars on the center, and 2 cars on the right lane.
 
 Example image other vehicles (V) ego vehicle (E):
 
 ![vehicle](../../media/vehicle.png)
 
-Note: this plot will be implemented in the next exercise, here it is just for illustration.
+Note: this plot will be implemented in the coming exercise, here it is just for illustration.
 
-Implement the following types:
+For now, implement the following types:
 
 ```cpp
 enum ... LaneAssociationType
@@ -26,15 +28,15 @@ struct VehicleType
 {
     // Id
     // Lane
-    // speed (meter/s)
-    // Distance (meter)
+    // Speed (meter/s)
+    // Relative Distance (meter)
 };
 
 struct NeighborVehiclesType
 {
-    // array for vehicles on left lane (2 vehicles)
-    // array for vehicles on center lane (2 vehicles)
-    // array for vehicles on right lane (2 vehicles)
+    // Array for nearby vehicles on left lane (2 vehicles in total)
+    // Array for nearby vehicles on center lane (2 vehicles in total)
+    // Array for nearby vehicles on right lane (2 vehicles in total)
 };
 ```
 
@@ -53,17 +55,20 @@ void print_neighbor_vehicles(const NeighborVehiclesType &vehicles);
 ```
 
 - kph_to_mps
-  - Convert kilometers/houtr to meters/second
+  - Convert the $\frac{km}{h}$ input to $\frac{m}{s}$
 - init_ego_vehicle
-  - Init ego vehicle with ID=-1, Speed=135kmh, Lane=Center
+  - Init the ego vehicle with the following attributes
+    - ID=-1
+    - Speed=135kmh
+    - Lane=Center
 - init_vehicles
-  - Init vehicles with IDs starting at 0, you can choose the speed of the vehicles and the distance to the ego vehicle
-    - There will be 2 Vehicles on the Left lane, 2 on the Right lane, and 2 on the Center lane
+  - Init the nearby vehicles for each lane
+    - IDs starting at 0
+    - Feel free to choose the speed and the distance
 - print_vehicle
-  - If the vehicle is an ego vehicle, just print the speed
-  - otherwise, print ID, Speed, and Distance
+  - Print the ID, Speed, and Distance of a vehicle
 - print_neighbor_vehicles
-  - iterate over all vehicles and print out their data
+  - Iterate over all vehicles and print out their data
 
 ## Main Function
 

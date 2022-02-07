@@ -2,7 +2,7 @@
 
 ## Update Ad
 
-Update the *AdFunctions* code such that we use *std::string*, *std::string_view* and *std::array*.
+Update the *AdFunctions* code such that we use *std::string*, *std::string_view* and *std::array* where it is appropiate.
 
 Update the following functions:
 
@@ -12,7 +12,7 @@ const VehicleType *get_vehicle_array(const LaneAssociationType lane,
 ```
 
 - get_vehicle_array
-  - Instead of **VehicleType \*** return a reference to a vehicle type array
+  - Instead of **VehicleType \*** return a reference to a *VehicleType* array
 
 ## Update DataLoader
 
@@ -34,8 +34,11 @@ Hence, we will only store the speed for every cycle (iteration) and not as befor
 
 Update the following functions regarding the new *VehiclesLogData* struct.
 
-- init_vehicles
-- load_cycle
+```cpp
+void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles);
+
+void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles);
+```
 
 ## Main Function
 
@@ -98,21 +101,21 @@ int main(int argc, char **argv)
 
         print_scene(ego_vehicle, vehicles);
         compute_future_state(ego_vehicle, vehicles, 0.100F);
-        const auto lane_change_request = longitudinal_control(vehicles, ego_vehicle);
-        const auto lane_change_successful = lateral_control(vehicles, lane_change_request, ego_vehicle);
 
-        if (lane_change_request != ego_vehicle.lane)
+        const auto &ego_lane_vehicles = get_vehicle_array(ego_vehicle.lane, vehicles);
+        longitudinal_control(ego_lane_vehicles[0], ego_vehicle);
+
+        const auto lane_change_request = get_lane_change_request(ego_vehicle, vehicles);
+        const auto lane_change_executed = lateral_control(lane_change_request, ego_vehicle);
+
+        if (lane_change_executed)
         {
-            std::cout << "Lane change request: " << static_cast<std::int32_t>(lane_change_request) << '\n';
-        }
-        if (lane_change_successful)
-        {
-            std::cout << "Lane change successull" << '\n';
+            printf("Executed lane change!");
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        cycle++;
 
+        cycle++;
         load_cycle(cycle, vehicles);
     }
 

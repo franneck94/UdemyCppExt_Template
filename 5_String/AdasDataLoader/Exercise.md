@@ -1,12 +1,42 @@
 # Exercise
 
-For this exercise, we want to load a data log of a fictional test drive of our autonomous car.
-
+For this exercise, we want to load a data log of a fictional test drive of our autonomous car.  
 The collected data is stored in the **data** folder.  
-There, the initial data of our ego vehicle is stored in **ego_data.json**, and the data of the other vehicles is stored in **vehicle_data.json**.
+There, the initial data of our ego vehicle is stored in **ego_data.json**, and the data of the other vehicles is stored in **vehicle_data.json**.  
+These data logs will always have exactly 1.000 iterations (log entries).
+
+## JSON Library Example
 
 To read in the json data we will use the most used C++ JSON library called **nlohman/json**.  
 For this, there is the header-only library file in the **nlohman** subdirectory.
+
+For example, the **ego_data.json** file has the content:
+
+```json
+{
+    "Lane": 2,
+    "Speed": 33.010941520630475
+}
+```
+
+To load the whole object, use the following code:
+
+```cpp
+#include <fstream>
+
+#include "nlohman/json.hpp"
+
+using json = nlohmann::json;
+
+std::ifstream ifs("ego_data.json");
+json parsed_data = json::parse(ifs);
+
+float speed_value = static_cast<float>(parsed_data["Speed"]);
+
+std::cout << speed_value << '\n'; // 33.0109415
+```
+
+## Code adaptations
 
 Delete the following functions from the previous **AdFunctions.cc** file:
 
@@ -26,50 +56,31 @@ void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles);
 
 Instead of generating the data by just random numbers, you have to load the JSON data and fill it into the **vehicles** and **ego_vehicle** struct.
 
-Note:
+- **init_ego_vehicle**
+  - Load the starting lane and starting speed from the json file
+  - The ID will still be *EGO_VEHICLE_ID* and the distance will still be 0
+- **init_vehicles**
+  - In these files, there will be the starting lane and a starting distance of the vehicle
+  - Only the speed is stored in every cycle (iteration)
+  - Load the whole json data into one big static struct
 
-- **vehicles** and **ego_vehicle** will be initialized only once
-- **init_ego_vehicle** should load the whole json data into one big static struct
-  - This means a global variable:
-    ```cpp
-    static VehiclesData vehicles_data =
-        std::vector<std::vector<VehicleType>>(NUM_VEHICLES, std::vector<VehicleType>(NUM_ITERATIONS));
-    ```
-  - This struct holds for every vehicle (6 in total) and for every cycle one struct of the type *VehicleType*
-    - So there re $6 * 1000 = 6000$ *VehicleType* structs
+```cpp
+static VehiclesData vehicles_data =
+    std::vector<std::vector<VehicleType>>(NUM_VEHICLES, std::vector<VehicleType>(NUM_ITERATIONS));
+```
+
+- This struct holds for every vehicle (6 in total) and every cycle (1000 in total) one large list of *VehicleType* structs
+  - So there are $6 * 1000 = 6000$ *VehicleType* structs
   - Every entry of this struct will then hold as usual the
     - id, lane, speed_mps, distance_m
 
-Afterwards, implement the following function:
+Afterward, implement the following function:
 
 ```cpp
 void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles);
 ```
 
-There you will take the other vehicle data (the static struct from above).  
-Use the current **cycle** index to get the data from the correct cycle and store it into the **vehicles** struct.
-
-## JSON Library Example
-
-For example the **ego_data.json** file has the content:
-
-```json
-{
-    "Lane": 2,
-    "Speed": 33.010941520630475
-}
-```
-
-To load the whole object, use the following code:
-
-```cpp
-std::ifstream ifs("ego_data.json");
-json parsed_data = json::parse(ifs);
-
-float speed_value = static_cast<float>(parsed_data["Speed"]);
-
-std::cout << speed_value << '\n'; // 33.0109415
-```
+- Load the data for the **cycle** from the global static data at the correct index
 
 ## Main Function
 

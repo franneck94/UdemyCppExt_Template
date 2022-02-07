@@ -9,11 +9,10 @@ bool lateral_control(const LaneAssociationType lane_change_request, VehicleType 
 ```
 
 - get_lane_change_request
-  - Send a lane change request if the vehicle would crash with the rear vehicle
-    - If there is enough space on the right lane, send a request
-    - Else If there is enough space on the left lane, send a request
+  - Send a lane change request to the left or right nearby lane to avoid a crash of the ego vehicle with the incoming (behind) vehicle
+    - If there is enough space on the right lane to make a lane change
+    - Else if there is enough space on the left lane, send a request
     - Else, don't do anything
-    - Check the size of the gap on the target lane
 - lateral_control
   - If there is a request from **get_lane_change_request** do a lane change
 

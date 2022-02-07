@@ -3,7 +3,7 @@
 Update the code from the lateral controller video:
 
 - Use the *auto* keyword where it is appropriate
-- You can also refactor the code such that you can create some helper functions to make the code more readable and easier to update
+- You can also refactor the *print_scene* function such that the code is more readable and easier to update
 
 ## Main Function
 
@@ -44,8 +44,8 @@ int main()
         const VehicleType *ego_lane_vehicles = get_vehicle_array(ego_vehicle.lane, vehicles);
         longitudinal_control(ego_lane_vehicles[0], ego_vehicle);
 
-        const LaneAssociationType lane_change_request = get_lane_change_request(ego_vehicle, vehicles);
-        const bool lane_change_executed = lateral_control(lane_change_request, ego_vehicle);
+        const auto lane_change_request = get_lane_change_request(ego_vehicle, vehicles);
+        const auto lane_change_executed = lateral_control(lane_change_request, ego_vehicle);
 
         if (lane_change_executed)
         {

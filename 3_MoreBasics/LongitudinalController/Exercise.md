@@ -8,7 +8,7 @@ void print_scene(const VehicleType &ego_vehicle, const NeighborVehiclesType &veh
 
 - print_scene:
   - Update the distance slices to 10m instead of 20m
-  - Add at the bottom of the function the speed of the ego vehicle
+  - Add the console output of the ego vehicle speed
 
 <img src="../../media/vehicle2.png" alt="vehicle"/>
 
@@ -23,12 +23,13 @@ void longitudinal_control(const VehicleType &front_vehicle, VehicleType &ego_veh
 ```
 
 - mps_to_kph
-  - Convert $\frac{m}{s}$ to $\frac{km}{h}$ value
+  - Convert the $\frac{m}{s}$ input to $\frac{km}{h}$ value
 - longitudinal_control
-  - If there is a vehicle in front of the ego vehicle
-    - and the distance is below half speed (kph, "halbe tacho"), the vehicle needs to **decrease_speed**
+  - The ego vehicle needs to **decrease_speed** whenever
+    - There is a vehicle in front of the ego vehicle
+    - and the distance is below half speed (kph, "halbe tacho")
 - decrease_speed
-  - Decrease the speed by the **LONGITUDINAL_DIFFERENCE_PERCENTAGE**
+  - Decrease the ego vehicle speed by the **LONGITUDINAL_DIFFERENCE_PERCENTAGE**
 
 ## Main Function
 
