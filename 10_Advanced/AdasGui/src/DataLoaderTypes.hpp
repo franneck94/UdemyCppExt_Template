@@ -1,9 +1,16 @@
 #pragma once
 
-#include <tuple>
-#include <vector>
+#include <array>
 
 #include "AdTypes.hpp"
 #include "DataLoaderConstants.hpp"
 
-using VehiclesData = std::vector<std::vector<VehicleType>>;
+struct VehicleLogData
+{
+    std::int32_t id;
+    LaneAssociationType lane;
+    float start_distance_m;
+    std::array<float, NUM_ITERATIONS> speeds_mps;
+};
+
+using VehiclesLogData = std::array<VehicleLogData, NUM_VEHICLES>;

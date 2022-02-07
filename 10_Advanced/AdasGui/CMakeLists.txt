@@ -36,6 +36,7 @@ add_executable(${EXE_NAME}
         app/imgui_impl_glfw.cpp
         app/imgui_impl_opengl3.h
         app/imgui_impl_opengl3.cpp
+        app/cycle.cpp
         app/main.cpp)
 target_set_warnings(TARGET ${EXE_NAME} ENABLE ON AS_ERROR OFF)
 

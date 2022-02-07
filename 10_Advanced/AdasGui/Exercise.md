@@ -25,7 +25,10 @@ if (ImPlot::BeginPlot("##Lane1", PLOT_DIM, PLOT_FLAGS))
 }
 ```
 
-- Below the lanes plot, you should plot a table with all the vehicles data
-- Below the table, you should plot the current cycle number and start/stop/replay buttons
+For this new logic, add the files to the *src* folder
+
+- **Render.cpp**
+- **Render.hpp**
+- **RenderConstants.cpp**
 
 ![Example](./media/AdasGuiDescr.png)
