@@ -39,8 +39,7 @@ Clang-tidy: Checks for issues in the code (similar to the compiler warnings)
     "-Wdouble-promotion"
   ],
   "C_Cpp_Runner.compilerArgs": [
-    "-pthread",
-    "-fopenmp"
+    "-pthread"
   ],
   "C_Cpp_Runner.includePaths": [
     "${workspaceFolder}/utils"
