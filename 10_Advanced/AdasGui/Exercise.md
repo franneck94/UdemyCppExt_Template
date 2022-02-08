@@ -2,48 +2,40 @@
 
 ## Example
 
+This will be the complete GUI after the next exercise.
+
 ![Example](./media/AdasGui.gif)
 
 ## Exercise
 
 The new code will be added to the following files
 
-- **Render.cpp**
+- **Render.cc**
 - **Render.hpp**
-- **RenderConstants.cpp**
+- **RenderConstants.hpp**
 
 The GUI should display the following features:
 
-- Scatter Plot with ImPlot
-  - Plot the position of the vehicles
 - Tabular Plot with ImPlot
   - Plot the ID, distance and speed of all vehicles
 
 ```cpp
-// Scatter Plot
-if (ImPlot::BeginPlot("##Lanes", PLOT_DIM, PLOT_FLAGS))
+void plot_table(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles)
 {
-    ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Lock, ImPlotAxisFlags_Lock | ImPlotAxisFlags_Invert);
-    ImPlot::SetupAxisLimits(ImAxis_X1, -MAX_VIEW_RANGE_M, MAX_VIEW_RANGE_M, ImGuiCond_Always);
-    ImPlot::SetupAxisLimits(ImAxis_Y1, LEFT_LEFT_BORDER, LEFT_RIGHT_BORDER, ImGuiCond_Always);
+    const auto num_cols = std::size_t{5};
 
-    // ...
-}
-```
-
-```cpp
-// Tabular Plot
- if (ImGui::Begin("TableWindow", nullptr, WINDOW_FLAGS_CLEAN))
+    if (ImGui::Begin("TableWindow", nullptr, ...))
     {
-        if (ImGui::BeginTable("Table", 5, ImGuiTableFlags_BordersV | ImGuiTableFlags_BordersOuter))
+        if (ImGui::BeginTable("Table", num_cols, ...))
         {
-            // ...
+
 
             ImGui::EndTable();
         }
 
         ImGui::End();
     }
+}
 ```
 
 ![Example](./media/AdasGuiDescr.png)
