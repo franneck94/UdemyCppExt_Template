@@ -10,8 +10,8 @@ template <typename RandomIter>
 auto range_sum_asyn(RandomIter start, RandomIter stop)
 ```
 
-Implement an async function that computes the sum of a container in the range of the **start** and **stop** iterator.  
-The function should launch several tasks within an async context.
+Implement an async function that computes the sum of a vector in the range of the **start** and **stop** iterator.  
+The function should launch several tasks within an async context by calling itself recursively.
 
 E.g.
 
@@ -19,20 +19,44 @@ E.g.
 std::async(std::launch::async, range_sum_asyn<RandomIter>, mid, stop);
 ```
 
+Pseudo-code:
+
+1. If Length from *start* to *stop* is below THRESHOLD => call accumulate for 
+2. Else call the function recursively by dividing the [start, stop) range in two halves
+3. Repeat 1. - 2.
+
 ## Main Function
 
 ```cpp
+#include <algorithm>
+#include <future>
+#include <iostream>
+#include <numeric>
+#include <thread>
+#include <vector>
+
+#include "Timer.hpp"
+#include "utils.hpp"
+
+constexpr std::uint32_t NUM_RUNS = 1'000;
+
+template <typename T, typename RandomIter>
+T range_sum_asyn(RandomIter start, RandomIter stop)
+{
+    // ...
+}
+
 int main()
 {
-    std::vector<int> my_vector(30'000'000, 0);
-    random_vector(my_vector);
+    std::vector<std::int32_t> vector(30'000'000, 0);
+    random_vector(vector);
 
-    double time1 = 0.0;
+    auto time1 = 0.0;
     volatile auto sum1 = 0;
     for (std::uint32_t i = 0; i < NUM_RUNS; ++i)
     {
         cpptiming::Timer t1;
-        sum1 = range_sum_asyn(my_vector.begin(), my_vector.end());
+        sum1 = range_sum_asyn<std::int32_t>(vector.begin(), vector.end());
         time1 += t1.elapsed_time<cpptiming::millisecs, double>();
     }
     std::cout << "Mean Async: " << time1 / NUM_RUNS << "ms sum: " << sum1 << '\n';
