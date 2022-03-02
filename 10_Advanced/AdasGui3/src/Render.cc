@@ -37,7 +37,7 @@ void plot_lanes_solid_line(const Polynomial3rdDegreeType &polynomial, std::strin
     ImPlot::SetNextLineStyle(LINE_COLOR, LINE_WIDTH);
     ImPlot::PlotLine(label.data(), xs, ys, num_points);
 
-    (void)polynomial;
+    (void)polynomial; // To be removed
 }
 
 // TODO: Change this function
@@ -62,7 +62,7 @@ void plot_lanes_dashed_line(const Polynomial3rdDegreeType &polynomial, std::stri
         ImPlot::PlotLine(label.data(), xs, ys, num_points);
     }
 
-    (void)polynomial;
+    (void)polynomial; // To be removed
 }
 
 // TODO: Change this function
@@ -80,6 +80,8 @@ void plot_lanes_vehicles(const LaneType &lane,
         ImPlot::SetNextMarkerStyle(VEHICLE_MARKER, VEHICLE_SCATTER_SIZE);
         ImPlot::PlotScatter(labels[i].data(), &xs_front, &ys_front, num_elements);
     }
+
+    (void)lane; // To be removed
 }
 
 // TODO: Change this function
@@ -113,7 +115,7 @@ void plot_lanes_ego_vehicle(const LanesType &lanes, const VehicleType &ego_vehic
     }
     }
 
-    (void)lanes;
+    (void)lanes; // To be removed
 }
 
 void plot_lanes(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles, const LanesType &lanes)

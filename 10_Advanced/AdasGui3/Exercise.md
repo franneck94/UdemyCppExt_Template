@@ -81,4 +81,7 @@ This will be extended in the next exercise.
 Furthermore, we will plot the vehicle in the middle of the lanes.  
 Hence, in front of us, you have to compute the center point of the lane.  
 
+You only have to edit the functions that are marked with *TODO*.  
+The parameter lists are already updated.  
+
 ![Example](./media/LaneDescr.png)
