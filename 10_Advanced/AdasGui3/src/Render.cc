@@ -13,7 +13,7 @@
 
 void render_cycle(const VehicleType &ego_vehicle,
                   const NeighborVehiclesType &vehicles,
-                  const LanesType &lanes)
+                  const LanesInformationType &lanes)
 {
     ImGui::SetNextWindowPos(ImVec2(0.0F, 0.0F));
     ImGui::SetNextWindowSize(ImVec2(WINDOWS_WIDTH, LANE_PLOT_TOTAL_HEIGHT));
@@ -66,7 +66,7 @@ void plot_lanes_dashed_line(const Polynomial3rdDegreeType &polynomial, std::stri
 }
 
 // TODO: Change this function
-void plot_lanes_vehicles(const LaneType &lane,
+void plot_lanes_vehicles(const LaneInformationType &lane,
                          const std::array<VehicleType, NUM_VEHICLES_ON_LANE> &vehicles,
                          const std::array<std::string_view, NUM_VEHICLES_ON_LANE> &labels)
 {
@@ -85,7 +85,9 @@ void plot_lanes_vehicles(const LaneType &lane,
 }
 
 // TODO: Change this function
-void plot_lanes_ego_vehicle(const LanesType &lanes, const VehicleType &ego_vehicle, std::string_view label)
+void plot_lanes_ego_vehicle(const LanesInformationType &lanes,
+                            const VehicleType &ego_vehicle,
+                            std::string_view label)
 {
     const auto num_elements = std::size_t{1};
 
@@ -118,7 +120,9 @@ void plot_lanes_ego_vehicle(const LanesType &lanes, const VehicleType &ego_vehic
     (void)lanes; // To be removed
 }
 
-void plot_lanes(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles, const LanesType &lanes)
+void plot_lanes(const VehicleType &ego_vehicle,
+                const NeighborVehiclesType &vehicles,
+                const LanesInformationType &lanes)
 {
     if (ImPlot::BeginPlot("Lanes", PLOT_DIM, PLOT_FLAGS))
     {

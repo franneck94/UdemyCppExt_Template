@@ -57,7 +57,7 @@ void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles)
     set_vehicle_start_data(vehicles.vehicles_right_lane[1], vehicles_log_data[5]);
 }
 
-void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles, LanesType &lanes)
+void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles, LanesInformationType &lanes)
 {
     vehicles.vehicles_left_lane[0].speed_mps = vehicles_log_data[0].speeds_mps[cycle];
     vehicles.vehicles_left_lane[1].speed_mps = vehicles_log_data[1].speeds_mps[cycle];
@@ -90,13 +90,13 @@ void get_lane_border_data(const std::uint32_t i, const size_t lane_idx, const js
     lanes_log_data[lane_idx].right_polynomials[i].d = parsed_data[lane_str]["1"][i_str]["d"];
 }
 
-void set_lanes_start_data(LaneType &lane, const size_t lane_idx)
+void set_lanes_start_data(LaneInformationType &lane, const size_t lane_idx)
 {
     lane.left_polynomial = lanes_log_data[lane_idx].left_polynomials[0];
     lane.right_polynomial = lanes_log_data[lane_idx].right_polynomials[0];
 }
 
-void init_lanes(std::string_view filepath, LanesType &lanes)
+void init_lanes(std::string_view filepath, LanesInformationType &lanes)
 {
     std::ifstream ifs(filepath.data());
     json parsed_data = json::parse(ifs);

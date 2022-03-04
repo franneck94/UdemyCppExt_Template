@@ -1,4 +1,4 @@
-# Dear ImGUI Template to Start
+# Exercise
 
 ## Example
 
@@ -6,11 +6,10 @@
 
 ## Intro
 
-I have added the information about the lanes.  
 In a self-driving car, the camera will deliver the lane information.  
 In this exercise the lane border shape is given by a 3rd-degree polynomial:
 
-$p(x) = a^3 * x + b^2 * x + c * x + d$
+$p(x) = a^3x + b^2x + cx + d$
 
 If you plug in an x value (longitudinal distance in meter) you will get the lane position.  
 Since our use case has 3 lanes in total and each lane has 2 lane borders (left and right border of each lane), there will be 6 polynomials in total.
@@ -32,8 +31,8 @@ Right Lane:
 
 Note:
 
-LeftRightBorder and CenterLeftBorder are the same polynomials.  
-CenterRightBorder and RightLeftBorder are the same polynomials.  
+LeftRightBorder and CenterLeftBorder are the same polynomials for now.  
+CenterRightBorder and RightLeftBorder are the same polynomials for now.  
 
 ## Exercise
 
@@ -52,36 +51,34 @@ struct Polynomial3rdDegreeType
      */
     float operator()(const float x) const
     {
-        const auto x_3 = std::powf(a, 3.0F) * x;
-        const auto x_2 = std::powf(b, 2.0F) * x;
-        const auto x_1 = std::powf(c, 1.0F) * x;
-        const auto x_0 = d;
-        return x_3 + x_2 + x_1 + x_0;
+        return 0.0F; // TODO
     }
 };
 
-struct LaneType
+struct LaneInformationType
 {
     Polynomial3rdDegreeType left_polynomial;
     Polynomial3rdDegreeType right_polynomial;
+
+    /**
+     * @brief To compute the middle point of the two polynomials at pos. x
+     */
+    float get_lateral_position(const float x) const
+    {
+        return 0.0F; // TODO
+    }
 };
 
-struct LanesType
+struct LanesInformationType
 {
-    LaneType left_lane;
-    LaneType center_lane;
-    LaneType right_lane;
+    LaneInformationType left_lane;
+    LaneInformationType center_lane;
+    LaneInformationType right_lane;
 };
 ```
 
 For plotting the lanes you have to use the polynomials.  
-For now, we will only use the polynomials to plot the lane in front of us (x > 0).  
+Note: The polynomials are only used to plot the lane in front of us (x > 0).  
 The lane behind us will be just a straight line, as it was before.  
-This will be extended in the next exercise.  
 Furthermore, we will plot the vehicle in the middle of the lanes.  
-Hence, in front of us, you have to compute the center point of the lane.  
-
-You only have to edit the functions that are marked with *TODO*.  
-The parameter lists are already updated.  
-
-![Example](./media/LaneDescr.png)
+Hence, you have to compute the center point of the lane.  

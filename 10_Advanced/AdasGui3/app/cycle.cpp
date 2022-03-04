@@ -41,7 +41,7 @@ void reset_state(const fs::path &ego_filepath,
                  std::size_t &cycle,
                  VehicleType &ego_vehicle,
                  NeighborVehiclesType &vehicles,
-                 LanesType &lanes)
+                 LanesInformationType &lanes)
 {
     cycle = 0;
     init_ego_vehicle(ego_filepath.string(), ego_vehicle);
@@ -75,7 +75,7 @@ void cycle_function(const fs::path &ego_filepath,
     std::size_t cycle = 0;
     VehicleType ego_vehicle{};
     NeighborVehiclesType vehicles{};
-    LanesType lanes{};
+    LanesInformationType lanes{};
 
     init_ego_vehicle(ego_filepath.string(), ego_vehicle);
     init_vehicles(data_filepath.string(), vehicles);

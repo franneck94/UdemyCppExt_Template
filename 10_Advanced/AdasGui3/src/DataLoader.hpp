@@ -13,6 +13,6 @@ void init_ego_vehicle(std::string_view filepath, VehicleType &ego_vehicle);
 
 void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles);
 
-void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles, LanesType &lanes);
+void load_cycle(const std::uint32_t cycle, NeighborVehiclesType &vehicles, LanesInformationType &lanes);
 
-void init_lanes(std::string_view filepath, LanesType &lanes);
+void init_lanes(std::string_view filepath, LanesInformationType &lanes);

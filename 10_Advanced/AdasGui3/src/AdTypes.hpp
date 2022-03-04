@@ -41,38 +41,27 @@ struct Polynomial3rdDegreeType
      */
     float operator()(const float x) const
     {
-        const auto x_3 = std::powf(a, 3.0F) * x;
-        const auto x_2 = std::powf(b, 2.0F) * x;
-        const auto x_1 = std::powf(c, 1.0F) * x;
-        const auto x_0 = d;
-        return x_3 + x_2 + x_1 + x_0;
+        return 0.0F; // TODO
     }
 };
 
-struct LaneType
+struct LaneInformationType
 {
     Polynomial3rdDegreeType left_polynomial;
     Polynomial3rdDegreeType right_polynomial;
 
+    /**
+     * @brief To compute the middle point of the two polynomials at pos. x
+     */
     float get_lateral_position(const float x) const
     {
-        if (x <= 0.0F)
-        {
-            return (left_polynomial.d + right_polynomial.d) / 2.0F;
-        }
-        else
-        {
-            const auto left_border_distance_m = left_polynomial(x);
-            const auto right_border_distance_m = right_polynomial(x);
-
-            return (left_border_distance_m + right_border_distance_m) / 2.0F;
-        }
+        return 0.0F; // TODO
     }
 };
 
-struct LanesType
+struct LanesInformationType
 {
-    LaneType left_lane;
-    LaneType center_lane;
-    LaneType right_lane;
+    LaneInformationType left_lane;
+    LaneInformationType center_lane;
+    LaneInformationType right_lane;
 };
