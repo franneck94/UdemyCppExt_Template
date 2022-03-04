@@ -41,6 +41,7 @@ struct Polynomial3rdDegreeType
      */
     float operator()(const float x) const
     {
+        (void)x;
         return 0.0F; // TODO
     }
 };
@@ -55,6 +56,7 @@ struct LaneInformationType
      */
     float get_lateral_position(const float x) const
     {
+        (void)x;
         return 0.0F; // TODO
     }
 };
