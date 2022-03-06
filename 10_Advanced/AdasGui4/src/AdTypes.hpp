@@ -45,13 +45,6 @@ struct Polynomial3rdDegreeType
     }
 };
 
-enum class LaneBoundaryType
-{
-    DASHED,
-    SOLID,
-    NONE,
-};
-
 struct LaneInformationType
 {
     Polynomial3rdDegreeType left_polynomial;
