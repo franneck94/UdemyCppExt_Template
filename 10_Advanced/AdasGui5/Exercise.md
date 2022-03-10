@@ -97,10 +97,25 @@ Function for the lane class coloring is:
 
 ```cpp
 ImPlot::SetNextFillStyle(color);
-ImPlot::PlotShaded("label", x_data, y_data, num_points, offset); // offset can be used to "shift" the shaded area on the y-axis
+ImPlot::PlotShaded("label", x_data, y_data, 2, offset); // offset can be used to "shift" the shaded area on the y-axis
 ```
 
-### Exercise 3
+For example if we want to plot a shaded rect with the two points:
+
+$P_1 = (0.0, 5.0)$, $P_2 = (10.0, 5.0)$
+
+```cpp
+float x_data[] = {0.0F, 10.0F};
+float y_data[] = {5.0F, 5.0F};
+ImPlot::SetNextFillStyle(GREEN_BACKGROUND);
+ImPlot::PlotShaded("label", x_data, y_data, 2, 0.0F);
+```
+
+The result is:
+
+![Example](./media/ShadedRect.png)
+
+### Exercise 2
 
 - Update the plot_lanes_ego_vehicle function
   - Such that the longitudinal and lateral request is displayed

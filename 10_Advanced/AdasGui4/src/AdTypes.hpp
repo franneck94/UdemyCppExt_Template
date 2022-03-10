@@ -9,8 +9,8 @@
 enum class LaneAssociationType
 {
     LEFT,
-    RIGHT,
     CENTER,
+    RIGHT,
     NONE,
 };
 
