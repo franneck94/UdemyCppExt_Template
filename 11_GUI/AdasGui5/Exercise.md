@@ -68,20 +68,22 @@ The DataLoader code is also already updated for you.
 
 Update the vehicle plotting code:
 
-- Such that the following mapping is used:
+- Use the following mapping is used:
   - Ego Vehicle:
-    - White Square
-    - Marker Size: 15.0
+    - White
   - Other Car:
-    - Blue Square
-    - Marker Size: 15.0
+    - Blue
   - Truck:
-    - Red Square
-    - Marker Size: 25.0
+    - Red
   - Motorbike:
-    - Green Square
-    - Marker Size: 10.0
+    - Green
+- To plot the vehicle marker, from now on we will use the function *plot_vehicle_marker* defined in the Render.cc file
 - Such that the lateral and longitudinal distance is used
+
+### Exercise 2
+
+Update the lane clas plotting code:
+
 - Such that the lane class is used to color the lane (space between the lane borders)
   - Normal: Green-ish color
   - Acceleration: Blue-ish color
@@ -115,8 +117,8 @@ The result is:
 
 ![Example](./media/ShadedRect.png)
 
-### Exercise 2
+### Exercise 3
 
-- Update the plot_lanes_ego_vehicle function
+- Update the ego vehicle plot function
   - Such that the longitudinal and lateral request is displayed
     - You can use a scatter point with a marker to indicate a lane change or braking request

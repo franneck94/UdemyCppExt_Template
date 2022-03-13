@@ -1,13 +1,4 @@
-# Sources and Headers
-set(LIBRARY_SOURCES
-    "Render.cc"
-    "DataLoader.cc"
-    "AdFunctions.cc")
-
-# Library
-add_library(${ADAS_LIB} ${LIBRARY_SOURCES})
-target_include_directories(${IMPLOT_LIB} PUBLIC "./")
-target_link_libraries(${ADAS_LIB} PUBLIC ${IMGUI_LIB})
-target_link_libraries(${ADAS_LIB} PUBLIC ${IMPLOT_LIB})
-target_link_libraries(${ADAS_LIB} PUBLIC ${JSON_LIB})
-target_set_warnings(TARGET ${ADAS_LIB} ENABLE ON AS_ERROR OFF)
+add_subdirectory(Util)
+add_subdirectory(AutomatedDriving)
+add_subdirectory(DataLoader)
+add_subdirectory(Render)

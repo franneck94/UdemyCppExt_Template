@@ -29,6 +29,29 @@ void render_cycle(const VehicleInformationType &ego_vehicle,
     }
 }
 
+void plot_vehicle_marker(const VehicleInformationType &vehicle, const ImVec4 &color, std::string_view label)
+{
+    if (vehicle.id == NONE_VEHICLE_ID)
+    {
+        return;
+    }
+
+    const auto num_points = size_t{2};
+
+    const auto height_offset = (vehicle.height_m / 2.0F);
+    const auto width_offset = (vehicle.width_m / 5.0F);
+
+    const auto xs = std::array<float, num_points>{vehicle.long_distance_m - height_offset,
+                                                  vehicle.long_distance_m + height_offset};
+    const auto ys1 = std::array<float, num_points>{vehicle.lat_distance_m + width_offset,
+                                                   vehicle.lat_distance_m + width_offset};
+    const auto ys2 = std::array<float, num_points>{vehicle.lat_distance_m - width_offset,
+                                                   vehicle.lat_distance_m - width_offset};
+
+    ImPlot::SetNextFillStyle(color);
+    ImPlot::PlotShaded(label.data(), xs.data(), ys1.data(), ys2.data(), num_points);
+}
+
 void plot_lanes_straight_solid_line(const Polynomial3rdDegreeType &polynomial,
                                     const float start_m,
                                     const float end_m)
