@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 
 set(PROJECT "AdasGui")
-project(${PROJECT} VERSION 0.1.0 LANGUAGES CXX C)
+project(${PROJECT} VERSION 0.1.0 LANGUAGES C CXX)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD              17)
@@ -20,33 +20,25 @@ if (ENABLE_WARNINGS)
 endif()
 
 # Project/Library Names
-set(ADAS_LIB      lib)
 set(IMGUI_LIB     imgui)
-set(IMPLOT_LIB    implot)
 set(GLFW_LIB      glfw)
 set(GLAD_LIB      glad)
+set(IMPL_LIB      impl)
+set(IMPLOT_LIB    implot)
 set(JSON_LIB      json)
-set(EXE_NAME      AdasGui)
-
 add_subdirectory(external)
+
+set(ADAS_LIB      lib)
+set(EXE_NAME      AdasGui)
 add_subdirectory(src)
 
 add_executable(${EXE_NAME}
-        app/imgui_impl_glfw.h
-        app/imgui_impl_glfw.cpp
-        app/imgui_impl_opengl3.h
-        app/imgui_impl_opengl3.cpp
         app/cycle.cpp
         app/main.cpp)
 target_set_warnings(TARGET ${EXE_NAME} ENABLE ON AS_ERROR OFF)
 
-target_include_directories(${EXE_NAME} PUBLIC "imgui/")
-target_link_libraries(${EXE_NAME} PUBLIC ${IMGUI_LIB} "${CMAKE_DL_LIBS}")
-target_include_directories(${EXE_NAME} PUBLIC "glad/include")
-target_link_libraries(${EXE_NAME} PUBLIC ${GLAD_LIB} "${CMAKE_DL_LIBS}")
-target_link_libraries(${EXE_NAME} PUBLIC ${GLFW_LIB} "${GLFW_LIBRARIES}")
-target_include_directories(${EXE_NAME} PUBLIC "glfw/include")
-target_compile_definitions(${EXE_NAME} PUBLIC "GLFW_INCLUDE_NONE")
-target_include_directories(${EXE_NAME} PUBLIC "implot")
-target_link_libraries(${EXE_NAME} PUBLIC ${IMPLOT_LIB} "${CMAKE_DL_LIBS}")
-target_link_libraries(${EXE_NAME} PUBLIC ${ADAS_LIB} "${CMAKE_DL_LIBS}")
+target_link_libraries(${EXE_NAME} PUBLIC
+    ${IMPL_LIB}
+    ${IMGUI_LIB}
+    ${IMPLOT_LIB}
+    ${ADAS_LIB})
