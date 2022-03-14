@@ -1,7 +1,7 @@
 import os
 import json
 import enum
-from typing import Any
+from typing import Any, List
 from typing import Dict
 
 import numpy as np
@@ -49,18 +49,10 @@ OBJECT_CLASSES = {
 }
 
 
-OBJECT_WIDTHS = {
-    0: 2.5,
-    1: 3.25,
-    2: 0.5
-}
+OBJECT_WIDTHS = {0: 2.5, 1: 3.25, 2: 0.5}
 
 
-OBJECT_HEIGHTS = {
-    0: 5.0,
-    1: 15.0,
-    2: 2.0
-}
+OBJECT_HEIGHTS = {0: 5.0, 1: 15.0, 2: 2.0}
 
 
 def kph_to_mps(kph: float) -> float:
@@ -68,59 +60,69 @@ def kph_to_mps(kph: float) -> float:
 
 
 def generate_ego_vehicle_data() -> Dict[str, list]:
-    start_speed_mps = round(kph_to_mps(120), 3)
+    start_velocity_mps = round(kph_to_mps(120), 4)
     start_lane = int(LaneAssociation.CENTER.value)
 
     ego_vehicle_data: Dict[str, list] = {
         "Lane": [1 for _ in range(NUM_ITERATIONS)],
-        "Speed": [0.0 for _ in range(NUM_ITERATIONS)],
+        "LongVelocity": [0.0 for _ in range(NUM_ITERATIONS)],
+        "LatVelocity": [0.0 for _ in range(NUM_ITERATIONS)],
     }
 
     ego_vehicle_data["Lane"][0] = start_lane
-    ego_vehicle_data["Speed"][0] = start_speed_mps
+    ego_vehicle_data["LongVelocity"][0] = start_velocity_mps
+    ego_vehicle_data["LatVelocity"][0] = 0.0
 
     for i in range(1, NUM_ITERATIONS):
         ego_vehicle_data["Lane"][i] = int(LaneAssociation.CENTER.value)
-        eps = np.random.normal(loc=0.0, scale=0.5)
-        new_speed = ego_vehicle_data["Speed"][i - 1] + eps
-        if new_speed >= 25.0 and new_speed <= 40.0:
-            ego_vehicle_data["Speed"][i] = round(new_speed, 3)
+        eps = np.random.normal(loc=0.0, scale=0.1)
+        new_velocity = ego_vehicle_data["LongVelocity"][i - 1] + eps
+        if new_velocity >= 25.0 and new_velocity <= 40.0:
+            ego_vehicle_data["LongVelocity"][i] = round(new_velocity, 4)
+            ego_vehicle_data["LatVelocity"][i] = round(eps, 4)
         else:
-            ego_vehicle_data["Speed"][i] = ego_vehicle_data["Speed"][i - 1]
+            ego_vehicle_data["LongVelocity"][i] = ego_vehicle_data[
+                "LongVelocity"
+            ][i - 1]
+            ego_vehicle_data["LatVelocity"][i] = ego_vehicle_data[
+                "LatVelocity"
+            ][i - 1]
 
     return ego_vehicle_data
 
 
-def generate_vehicle_data(id_: int, ego_speed_mps) -> dict:
+def generate_vehicle_data(id_: int, ego_velocity_mps: List[float]) -> dict:
     if id_ < 2:
         start_lane_associations = int(LaneAssociation.LEFT.value)
-        start_speed = round(np.random.uniform(110, 130), 3)
-        start_lat_distance = round(np.random.normal(loc=-3.0, scale=0.5), 3)
+        start_velocity = round(np.random.uniform(110, 130), 4)
+        start_lat_distance = round(np.random.normal(loc=-3.0, scale=0.5), 4)
     elif id_ < 4:
         start_lane_associations = int(LaneAssociation.CENTER.value)
-        start_speed = round(np.random.uniform(105, 125), 3)
-        start_lat_distance = round(np.random.normal(loc=0.0, scale=0.5), 3)
+        start_velocity = round(np.random.uniform(105, 125), 4)
+        start_lat_distance = round(np.random.normal(loc=0.0, scale=0.5), 4)
     else:
         start_lane_associations = int(LaneAssociation.RIGHT.value)
-        start_speed = round(np.random.uniform(100, 120), 3)
-        start_lat_distance = round(np.random.normal(loc=3.0, scale=0.5), 3)
+        start_velocity = round(np.random.uniform(100, 120), 4)
+        start_lat_distance = round(np.random.normal(loc=3.0, scale=0.5), 4)
 
     if id_ == 0 or id_ == 2 or id_ == 4:
-        start_long_distance = round(np.random.uniform(20, 80), 3)
+        start_long_distance = round(np.random.uniform(20, 80), 4)
 
     elif id_ == 1 or id_ == 3 or id_ == 5:
-        start_long_distance = round(np.random.uniform(-80, -20), 3)
+        start_long_distance = round(np.random.uniform(-80, -20), 4)
 
-    start_speed = round(kph_to_mps(start_speed), 3)
+    start_velocity = round(kph_to_mps(start_velocity), 4)
 
-    speed_data = [start_speed for _ in range(NUM_ITERATIONS)]
+    lat_velocities = [0.0 for _ in range(NUM_ITERATIONS)]
+    long_velocities = [start_velocity for _ in range(NUM_ITERATIONS)]
+
     for it in range(1, NUM_ITERATIONS):
         eps = np.random.normal(loc=0.0, scale=0.1)
-        new_speed = speed_data[it - 1] + eps
-        if new_speed >= 20.0 and new_speed <= 40.0:
-            speed_data[it] = round(new_speed, 3)
+        new_velocity = long_velocities[it - 1] + eps
+        if new_velocity >= 20.0 and new_velocity <= 40.0:
+            long_velocities[it] = round(new_velocity, 4)
         else:
-            speed_data[it] = round(speed_data[it - 1], 3)
+            long_velocities[it] = round(long_velocities[it - 1], 4)
 
     long_distances = [0.0 for _ in range(NUM_ITERATIONS)]
     lat_distances = [0.0 for _ in range(NUM_ITERATIONS)]
@@ -129,14 +131,16 @@ def generate_vehicle_data(id_: int, ego_speed_mps) -> dict:
     lat_distances[0] = start_lat_distance
 
     for it in range(1, NUM_ITERATIONS):
-        ego_driven_distance_m = FRAME_DURATION_S * ego_speed_mps[it - 1]
-        driven_distance_m = FRAME_DURATION_S * speed_data[it - 1]
+        eps = np.random.normal(loc=0.0, scale=0.01)
+        lat_velocities[it] = round(eps, 4)
+        ego_driven_distance_m = FRAME_DURATION_S * ego_velocity_mps[it - 1]
+        driven_distance_m = FRAME_DURATION_S * \
+            np.linalg.norm([long_velocities[it - 1], lat_velocities[it - 1]])
         long_distances[it] = round(
             long_distances[it - 1]
             + (driven_distance_m - ego_driven_distance_m),
             2,
         )
-        eps = np.random.normal(loc=0.0, scale=0.01)
         lat_distances[it] = round(lat_distances[it - 1] + eps, 4)
 
     lanes = [start_lane_associations for _ in range(NUM_ITERATIONS)]
@@ -156,7 +160,8 @@ def generate_vehicle_data(id_: int, ego_speed_mps) -> dict:
         "LongDistance": long_distances,
         "LatDistance": lat_distances,
         "ObjectClass": OBJECT_CLASSES[id_],
-        "Speed": speed_data,
+        "LatVelocity": lat_velocities,
+        "LongVelocity": long_velocities,
         "Width": OBJECT_WIDTHS[OBJECT_CLASSES[id_]],
         "Height": OBJECT_HEIGHTS[OBJECT_CLASSES[id_]],
     }
@@ -173,7 +178,17 @@ def main() -> int:
         idx: {} for idx in range(NUM_VEHICLES)
     }
     for i in range(NUM_VEHICLES):
-        data = generate_vehicle_data(i, ego_vehicle_data["Speed"])
+        ego_velocities_stacked = np.array(
+            [
+                [long, lat]
+                for long, lat in zip(
+                    ego_vehicle_data["LongVelocity"],
+                    ego_vehicle_data["LatVelocity"],
+                )
+            ]
+        )
+        ego_velocities = np.linalg.norm(ego_velocities_stacked, axis=1)
+        data = generate_vehicle_data(i, ego_velocities)
         vehicle_datas[i] = data
 
     with open(VEHICLE_FILEPATH, "w") as file_object:

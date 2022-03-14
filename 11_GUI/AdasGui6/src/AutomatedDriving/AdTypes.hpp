@@ -30,7 +30,15 @@ struct VehicleInformationType
     float height_m;
 
     LaneAssociationType lane;
-    float speed_mps;
+
+    float long_velocity_mps;
+    float lat_velocity_mps;
+    float velocity_mps;
+    float acceleration_mps2;
+    float heading_deg;
+    float rel_velocity_mps;
+    float rel_acceleration_mps2;
+
     float long_distance_m;
     float lat_distance_m;
 };
@@ -89,4 +97,10 @@ struct LanesInformationType
     LaneInformationType left_lane;
     LaneInformationType center_lane;
     LaneInformationType right_lane;
+};
+
+struct AdOutputsType
+{
+    bool long_request;
+    LaneAssociationType lat_request;
 };

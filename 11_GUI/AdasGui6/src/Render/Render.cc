@@ -10,6 +10,7 @@
 #include "DataLoaderConstants.hpp"
 #include "Render.hpp"
 #include "RenderConstants.hpp"
+#include "Units.hpp"
 
 void render_cycle(const VehicleInformationType &ego_vehicle,
                   const NeighborVehiclesType &vehicles,
@@ -31,17 +32,34 @@ void render_cycle(const VehicleInformationType &ego_vehicle,
 
 void plot_vehicle_marker(const VehicleInformationType &vehicle, const ImVec4 &color, std::string_view label)
 {
-    const auto num_points = size_t{2};
+    constexpr auto num_points = size_t{2};
+    constexpr auto scaling = ((2.0F * VIEW_RANGE_M) / (2.0F * LATERAL_RANGE_M));
 
     const auto height_offset = (vehicle.height_m / 2.0F);
-    const auto width_offset = (vehicle.width_m / 5.0F);
+    const auto width_offset = (vehicle.width_m / 4.0F);
 
-    const auto xs = std::array<float, num_points>{vehicle.long_distance_m - height_offset,
-                                                  vehicle.long_distance_m + height_offset};
-    const auto ys1 = std::array<float, num_points>{vehicle.lat_distance_m + width_offset,
-                                                   vehicle.lat_distance_m + width_offset};
-    const auto ys2 = std::array<float, num_points>{vehicle.lat_distance_m - width_offset,
-                                                   vehicle.lat_distance_m - width_offset};
+    auto xs = std::array<float, num_points>{vehicle.long_distance_m - height_offset,
+                                            vehicle.long_distance_m + height_offset};
+    auto ys1 = std::array<float, num_points>{vehicle.lat_distance_m + width_offset,
+                                             vehicle.lat_distance_m + width_offset};
+    auto ys2 = std::array<float, num_points>{vehicle.lat_distance_m - width_offset,
+                                             vehicle.lat_distance_m - width_offset};
+
+    const auto rad = (vehicle.heading_deg / scaling) * deg_to_rad(vehicle.heading_deg);
+    const auto cx = (xs[0] + xs[1]) / 2.0F;
+    const auto cy = (ys1[0] + ys2[0]) / 2.0F;
+
+    const auto p1 = rotate_point(rad, cx, cy, xs[0], ys1[0]);
+    const auto p2 = rotate_point(rad, cx, cy, xs[1], ys1[1]);
+    const auto p3 = rotate_point(rad, cx, cy, xs[0], ys2[0]);
+    const auto p4 = rotate_point(rad, cx, cy, xs[1], ys2[1]);
+
+    xs[0] = p1.first;
+    xs[1] = p2.first;
+    ys1[0] = p1.second;
+    ys1[1] = p2.second;
+    ys2[0] = p3.second;
+    ys2[1] = p4.second;
 
     ImPlot::SetNextFillStyle(color);
     ImPlot::PlotShaded(label.data(), xs.data(), ys1.data(), ys2.data(), num_points);
@@ -51,7 +69,7 @@ void plot_lanes_straight_solid_line(const Polynomial3rdDegreeType &polynomial,
                                     const float start_m,
                                     const float end_m)
 {
-    const auto num_rear_points = std::size_t{2};
+    constexpr auto num_rear_points = std::size_t{2};
 
     const auto x_rear = std::array<float, num_rear_points>{start_m, end_m};
     const auto y_rear = std::array<float, num_rear_points>{polynomial.d, polynomial.d};
@@ -63,7 +81,7 @@ void plot_lanes_polynomial_solid_line(const Polynomial3rdDegreeType &polynomial,
                                       const float start_m,
                                       const float end_m)
 {
-    const auto num_front_points = std::size_t{100};
+    constexpr auto num_front_points = std::size_t{100};
     const auto range_m = std::abs(end_m - start_m);
     const auto slice_length_m = range_m / static_cast<float>(num_front_points);
 
@@ -85,7 +103,7 @@ void plot_lanes_polynomial_dashed_line(const Polynomial3rdDegreeType &polynomial
                                        const float start_m,
                                        const float end_m)
 {
-    const auto num_points = std::size_t{2};
+    constexpr auto num_points = std::size_t{2};
     const auto range_m = std::abs(end_m - start_m);
     const auto num_slices = static_cast<std::uint32_t>(range_m / SLICE_LENGTH_M);
 
@@ -161,7 +179,7 @@ void plot_lane_class(const LaneInformationType &lane)
     }
     }
 
-    const auto num_points = size_t{2};
+    constexpr auto num_points = size_t{2};
 
     const auto offset_m = lane.right_polynomial.d;
     const auto min_view_range = std::min(lane.left_view_range_m, lane.right_view_range_m);
@@ -288,6 +306,13 @@ void plot_lanes(const VehicleInformationType &ego_vehicle,
     }
 }
 
+template <typename T>
+void plot_table_cell_value(std::string_view formatter, const T &value)
+{
+    ImGui::TableNextColumn();
+    ImGui::Text(formatter.data(), value);
+}
+
 void plot_vehicle_in_table(const VehicleInformationType &vehicle)
 {
     if (ObjectClassType::NONE == vehicle.object_class)
@@ -296,23 +321,23 @@ void plot_vehicle_in_table(const VehicleInformationType &vehicle)
     }
 
     ImGui::TableNextRow();
-    ImGui::TableNextColumn();
-    ImGui::Text("%d", vehicle.id);
-    ImGui::TableNextColumn();
-    ImGui::Text("%s", OBJECT_NAMES[static_cast<std::uint32_t>(vehicle.object_class)]);
-    ImGui::TableNextColumn();
-    ImGui::Text("%s", LANE_NAMES[static_cast<std::int32_t>(vehicle.lane)]);
-    ImGui::TableNextColumn();
-    ImGui::Text("%f", vehicle.long_distance_m);
-    ImGui::TableNextColumn();
-    ImGui::Text("%f", vehicle.lat_distance_m);
-    ImGui::TableNextColumn();
-    ImGui::Text("%f", vehicle.speed_mps);
+    plot_table_cell_value("%d", vehicle.id);
+    plot_table_cell_value("%s", OBJECT_NAMES[static_cast<std::uint32_t>(vehicle.object_class)]);
+    plot_table_cell_value("%s", LANE_NAMES[static_cast<std::int32_t>(vehicle.lane)]);
+    plot_table_cell_value("%f", vehicle.long_distance_m);
+    plot_table_cell_value("%f", vehicle.lat_distance_m);
+    plot_table_cell_value("%f", vehicle.velocity_mps);
+    plot_table_cell_value("%f", vehicle.long_velocity_mps);
+    plot_table_cell_value("%f", vehicle.lat_velocity_mps);
+    plot_table_cell_value("%f", vehicle.heading_deg);
+    plot_table_cell_value("%f", vehicle.acceleration_mps2);
+    plot_table_cell_value("%f", vehicle.rel_velocity_mps);
+    plot_table_cell_value("%f", vehicle.rel_acceleration_mps2);
 }
 
 void plot_table(const VehicleInformationType &ego_vehicle, const NeighborVehiclesType &vehicles)
 {
-    const auto num_cols = std::size_t{6};
+    constexpr auto num_cols = std::size_t{12};
 
     ImGui::SetNextWindowPos(ImVec2(0.0F, BELOW_LANES));
     ImGui::SetNextWindowSize(ImVec2(VEHICLE_TABLE_WIDTH, VEHICLE_TABLE_HEIGHT));
@@ -322,18 +347,18 @@ void plot_table(const VehicleInformationType &ego_vehicle, const NeighborVehicle
         if (ImGui::BeginTable("Table", num_cols, TABLE_FLAGS))
         {
             ImGui::TableNextRow(ImGuiTableRowFlags_Headers);
-            ImGui::TableNextColumn();
-            ImGui::Text("ID:");
-            ImGui::TableNextColumn();
-            ImGui::Text("Type:");
-            ImGui::TableNextColumn();
-            ImGui::Text("Lane:");
-            ImGui::TableNextColumn();
-            ImGui::Text("Long. Dist.:");
-            ImGui::TableNextColumn();
-            ImGui::Text("Lat. Dist.:");
-            ImGui::TableNextColumn();
-            ImGui::Text("Speed:");
+            plot_table_cell_value("%s", "ID:");
+            plot_table_cell_value("%s", "Type:");
+            plot_table_cell_value("%s", "Lane:");
+            plot_table_cell_value("%s", "Long. Dist.:");
+            plot_table_cell_value("%s", "Lat. Dist.:");
+            plot_table_cell_value("%s", "Velocity:");
+            plot_table_cell_value("%s", "Long. Vel.:");
+            plot_table_cell_value("%s", "Lat. Vel.:");
+            plot_table_cell_value("%s", "Heading Deg:");
+            plot_table_cell_value("%s", "Accel.:");
+            plot_table_cell_value("%s", "Rel. Vel.:");
+            plot_table_cell_value("%s", "Rel. Accel.:");
 
             plot_vehicle_in_table(ego_vehicle);
 

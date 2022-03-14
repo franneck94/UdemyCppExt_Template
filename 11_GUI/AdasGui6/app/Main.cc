@@ -15,9 +15,9 @@
 #endif
 #include <GLFW/glfw3.h>
 
+#include "Cycle.hpp"
 #include "Render.hpp"
 #include "RenderConstants.hpp"
-#include "cycle.hpp"
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
 #pragma comment(lib, "legacy_stdio_definitions")
@@ -25,40 +25,33 @@
 
 namespace fs = std::filesystem;
 
-static void glfw_error_callback(int error, const char *description);
+void glfw_error_callback(int error, const char *description);
 
 int main(int argc, char **argv)
 {
     fs::path data_filepath;
-    fs::path ego_filepath;
-    fs::path lane_filepath;
 
-    if (argc != 4)
+    if (argc < 2)
     {
 #if defined(_MSC_VER)
-        data_filepath /= fs::current_path().parent_path().parent_path();
+        data_filepath /= fs::current_path().parent_path().parent_path().parent_path();
 #else
-        data_filepath /= fs::current_path().parent_path();
+        data_filepath /= fs::current_path().parent_path().parent_path();
 #endif
         data_filepath /= "data";
-        ego_filepath = data_filepath;
-        lane_filepath = data_filepath;
-
-        data_filepath /= "vehicle_data.json";
-        ego_filepath /= "ego_data.json";
-        lane_filepath /= "lane_data.json";
     }
     else
     {
-        const auto vehicles_input_path = std::string(argv[1]);
-        data_filepath = fs::path(vehicles_input_path);
-
-        const auto ego_input_path = std::string(argv[2]);
-        ego_filepath = fs::path(ego_input_path);
-
-        const auto lane_input_path = std::string(argv[3]);
-        lane_filepath = fs::path(lane_input_path);
+        const auto data_path_str = std::string(argv[1]);
+        data_filepath = fs::path(data_path_str);
     }
+
+    fs::path ego_filepath = data_filepath;
+    ego_filepath /= "ego_data.json";
+    fs::path lane_filepath = data_filepath;
+    lane_filepath /= "lane_data.json";
+    fs::path vehicle_filepath = data_filepath;
+    vehicle_filepath /= "vehicle_data.json";
 
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
@@ -116,7 +109,7 @@ int main(int argc, char **argv)
     style.Colors[ImGuiCol_TableBorderStrong] = ImVec4(1.0, 1.0, 1.0, 1.0);
     style.Colors[ImGuiCol_TableBorderLight] = ImVec4(1.0, 1.0, 1.0, 1.0);
 
-    cycle_function(ego_filepath, data_filepath, lane_filepath, window);
+    cycle_function(ego_filepath, vehicle_filepath, lane_filepath, window);
 
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();

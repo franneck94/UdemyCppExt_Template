@@ -1,3 +1,10 @@
+set(IMGUI_LIB       imgui)
+set(GLFW_LIB        glfw)
+set(GLAD_LIB        glad)
+set(IMPL_LIB        impl)
+set(IMPLOT_LIB      implot)
+set(JSON_LIB        json)
+
 # imgui
 add_library(${IMGUI_LIB}
     "imgui/imgui.cpp"
@@ -24,17 +31,6 @@ add_subdirectory("glfw")
 target_link_libraries(${GLFW_LIB} PUBLIC ${IMGUI_LIB})
 target_set_warnings(TARGET ${IMGUI_LIB} ENABLE OFF AS_ERROR OFF)
 
-add_library(${IMPL_LIB}
-    impl/imgui_impl_glfw.h
-    impl/imgui_impl_glfw.cpp
-    impl/imgui_impl_opengl3.h
-    impl/imgui_impl_opengl3.cpp)
-target_include_directories(${IMPL_LIB} PUBLIC "impl")
-target_link_libraries(${IMPL_LIB}
-    ${IMGUI_LIB}
-    ${GLAD_LIB}
-    ${GLFW_LIB})
-
 # implot
 add_library(${IMPLOT_LIB}
     "implot/implot_demo.cpp"
@@ -42,9 +38,28 @@ add_library(${IMPLOT_LIB}
     "implot/implot.cpp")
 target_include_directories(${IMPLOT_LIB} PUBLIC "implot")
 target_link_libraries(${IMPLOT_LIB} PUBLIC ${IMGUI_LIB})
-target_set_warnings(TARGET ${IMGUI_LIB} ENABLE OFF AS_ERROR OFF)
+target_set_warnings(TARGET ${IMPLOT_LIB} ENABLE OFF AS_ERROR OFF)
 
 # json
 add_library(${JSON_LIB} INTERFACE)
 target_include_directories(${JSON_LIB} INTERFACE "json")
-target_set_warnings(TARGET ${IMGUI_LIB} ENABLE OFF AS_ERROR OFF)
+target_set_warnings(TARGET ${JSON_LIB} ENABLE OFF AS_ERROR OFF)
+
+# impl
+add_library(${IMPL_LIB}
+    impl/imgui_impl_glfw.h
+    impl/imgui_impl_glfw.cpp
+    impl/imgui_impl_opengl3.h
+    impl/imgui_impl_opengl3.cpp)
+target_include_directories(${IMPL_LIB} PUBLIC "impl")
+target_link_libraries(${IMPL_LIB} PUBLIC
+    ${IMGUI_LIB}
+    ${IMPLOT_LIB}
+    ${GLFW_LIB}
+    ${GLAD_LIB})
+
+# all externals
+add_library(${EXTERNAL_LIB} INTERFACE)
+target_link_libraries(${EXTERNAL_LIB} INTERFACE
+    ${IMPL_LIB}
+    ${JSON_LIB})

@@ -20,25 +20,11 @@ if (ENABLE_WARNINGS)
 endif()
 
 # Project/Library Names
-set(IMGUI_LIB     imgui)
-set(GLFW_LIB      glfw)
-set(GLAD_LIB      glad)
-set(IMPL_LIB      impl)
-set(IMPLOT_LIB    implot)
-set(JSON_LIB      json)
+set(EXTERNAL_LIB    ExternalLib)
 add_subdirectory(external)
 
-set(ADAS_LIB      lib)
-set(EXE_NAME      AdasGui)
+set(ALGO_LIB        AdasAlgo)
 add_subdirectory(src)
 
-add_executable(${EXE_NAME}
-        app/cycle.cpp
-        app/main.cpp)
-target_set_warnings(TARGET ${EXE_NAME} ENABLE ON AS_ERROR OFF)
-
-target_link_libraries(${EXE_NAME} PUBLIC
-    ${IMPL_LIB}
-    ${IMGUI_LIB}
-    ${IMPLOT_LIB}
-    ${ADAS_LIB})
+set(EXE_NAME        AdasGui)
+add_subdirectory(app)

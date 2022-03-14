@@ -22,10 +22,10 @@ void render_cycle(const VehicleInformationType &ego_vehicle,
                   const bool long_request,
                   const LaneAssociationType lat_request);
 
-static void plot_lanes(const VehicleInformationType &ego_vehicle,
-                       const NeighborVehiclesType &vehicles,
-                       const LanesInformationType &lanes,
-                       const bool long_request,
-                       const LaneAssociationType lat_request);
+void plot_lanes(const VehicleInformationType &ego_vehicle,
+                const NeighborVehiclesType &vehicles,
+                const LanesInformationType &lanes,
+                const bool long_request,
+                const LaneAssociationType lat_request);
 
-static void plot_table(const VehicleInformationType &ego_vehicle, const NeighborVehiclesType &vehicles);
+void plot_table(const VehicleInformationType &ego_vehicle, const NeighborVehiclesType &vehicles);

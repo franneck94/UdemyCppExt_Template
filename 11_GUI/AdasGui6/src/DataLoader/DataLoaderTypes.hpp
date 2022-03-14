@@ -30,6 +30,8 @@ struct VehicleLogData
     std::array<float, NUM_ITERATIONS> heading_degs;
     std::array<float, NUM_ITERATIONS> long_distances_m;
     std::array<float, NUM_ITERATIONS> lat_distances_m;
+    std::array<float, NUM_ITERATIONS> rel_velocities_mps;
+    std::array<float, NUM_ITERATIONS> rel_accelerations_mps2;
 };
 
 using VehiclesLogData = std::array<VehicleLogData, NUM_VEHICLES>;
