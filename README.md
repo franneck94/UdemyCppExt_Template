@@ -1,74 +1,19 @@
-# C++ Programmierung
+# C++ Übungen: Praxisnahe und Moderne C++ Programmierung
 
-## Chapter 1
+## Folgende Beispiele werden in dem Aufgaben-Kurs gezeigt
 
-- Datatypes
-- ASCII Table
-- Console In/Output
-- If/Else
-- Boolean logic
-- For/While Loop
-- Functions
+- Konvertierung zischen den Einheiten: Sekunde, Millisekunde, Minute, Stunde
+- Konvertierung von Characters zu Upper, Lower Case, die Überprüfung von Character, ob sie Zahlen oder Buchstaben beinhalten
+- Das Annähern von PI, anhand von mathematischen Berechnungen
+- Die Berechnung vom Modulo Operator, die Berechnung der Quersumme
+- Die Nachimplementierung von Std Library Funktionen
+  - Algorithm Library Funktionen
+  - String Library Funktionen
+  - Numeric Library Funktionen
+- Das Beispiel eines Selbstfahrenden Autos auf der Autobahn (natürlich vereinfacht :))
+- Ein eigenes Tool das C/C++ Code compilen und ausführen kann
+- Ein Tool, das die meist verwendeten Wörter in einem Textdokument bestimmt
+- Ein Tool das Bilder mit Geometrischen Objekten erstellt (Kreis, Rechteck)
+- und vieles mehr
 
-## Chapter 2
-
-- Arrays (1D, 2D+)
-- Raw Pointer
-- Heap De-/Allocation
-- Call by Value/Reference
-- Array to pointer decay
-
-## Chapter 3
-
-- Structs
-- Enum, Enum Class
-- Switch
-- Const, Constexpr, Defines
-- Casting, Overloading
-
-## Chapter 4
-
-- Vector (1D, 2D+)
-- Typedef, Using Alias
-- Auto
-
-## Chapter 5
-
-- Strings
-- Read/Write operations
-- SSO, String View
-- Filesystem
-
-## Chapter 6
-
-- Array
-- Map, Pair, Tuple
-- Iterator, Inserter
-
-## Chapter 7
-
-- Random
-- Chrono
-- Algorithms
-- Numeric
-
-## Chapter 8
-
-- Classes
-- Inheritance
-- Const correctness
-- Public, Protected, Private
-- Getter, Setter
-- Polymorphism
-
-## Chapter 9
-
-- Function template
-- Class template
-- Operator overloading
-
-## Advanced
-
-- Lambda
-- Threads
-- Exceptions
+Werde noch heute ein Profi, in der Technologie von Morgen!Wir sehen uns im Kurs!

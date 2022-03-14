@@ -25,7 +25,7 @@
 
 namespace fs = std::filesystem;
 
-static void glfw_error_callback(int error, const char *description);
+void glfw_error_callback(int error, const char *description);
 
 int main(int argc, char **argv)
 {

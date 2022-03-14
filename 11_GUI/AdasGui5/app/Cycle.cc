@@ -147,7 +147,7 @@ void execute_cycle(const std::size_t cycle,
     const auto long_request = get_longitudinal_request(front_vehicle, ego_vehicle);
     const auto lat_request = get_lat_request(ego_vehicle, vehicles);
 
-    load_cycle(cycle, vehicles, lanes);
+    load_cycle(cycle, vehicles, ego_vehicle, lanes);
     render_cycle(ego_vehicle, vehicles, lanes, long_request, lat_request);
 }
 
