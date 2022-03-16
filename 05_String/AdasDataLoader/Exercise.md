@@ -103,25 +103,22 @@ namespace fs = std::filesystem;
 int main(int argc, char **argv)
 {
     fs::path data_filepath;
-    fs::path ego_filepath;
 
-    if (argc != 3)
+    if (argc < 2)
     {
         data_filepath /= fs::current_path();
         data_filepath /= "data";
-        ego_filepath = data_filepath;
-
-        data_filepath /= "vehicle_data.json";
-        ego_filepath /= "ego_data.json";
     }
     else
     {
-        const auto vehicles_input_path = std::string(argv[1]);
-        data_filepath = fs::path(vehicles_input_path);
-
-        const auto ego_input_path = std::string(argv[2]);
-        ego_filepath = fs::path(ego_input_path);
+        const auto data_path_str = std::string(argv[1]);
+        data_filepath = fs::path(data_path_str);
     }
+
+    fs::path ego_filepath = data_filepath;
+    ego_filepath /= "ego_data.json";
+    fs::path vehicle_filepath = data_filepath;
+    vehicle_filepath /= "vehicle_data.json";
 
     std::uint32_t cycle = 0;
     VehicleType ego_vehicle{};
