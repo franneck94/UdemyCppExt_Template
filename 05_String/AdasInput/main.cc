@@ -1,24 +1,3 @@
-# Exercise
-
-After this video, we will implement a feature to load in *recorded* data of a test drive of our fictional autonomous car.  
-For that, we will read in JSON files.  
-To be able to read in the files, update the code from the refactoring video:
-
-- Add the argc, \*\*argv to the main function such that the user can input the data path, inside the data path the following files should be
-  - *ego_data* file
-  - *vehicle_data* file
-- If the user does not provide the data path just assume that these files are relative to the main file
-  - *./data/ego_data.json*
-  - *./data/vehicle_data.json*
-
-Note:
-
-In this exercise, we will only update the *main.cc* file.  
-For the file paths, use the *filesystem* library.
-
-## Main Function
-
-```cpp
 #include <chrono>
 #include <cstring>
 #include <iostream>
@@ -55,8 +34,8 @@ int main()
         const VehicleType *ego_lane_vehicles = get_vehicle_array(ego_vehicle.lane, vehicles);
         longitudinal_control(ego_lane_vehicles[0], ego_vehicle);
 
-        const auto lane_change_request = get_lane_change_request(ego_vehicle, vehicles);
-        const auto lane_change_executed = lateral_control(lane_change_request, ego_vehicle);
+        const LaneAssociationType lane_change_request = get_lane_change_request(ego_vehicle, vehicles);
+        const bool lane_change_executed = lateral_control(lane_change_request, ego_vehicle);
 
         if (lane_change_executed)
         {
@@ -68,4 +47,3 @@ int main()
 
     return 0;
 }
-```
