@@ -6,10 +6,10 @@ import numpy as np
 
 
 class LaneAssociation(enum.Enum):
-    UNKNOWN = 0
-    RIGHT = 1
-    CENTER = 2
-    LEFT = 3
+    LEFT = 0
+    CENTER = 1
+    RIGHT = 2
+    UNKNOWN = 3
 
 
 NUM_VEHICLES = 6
