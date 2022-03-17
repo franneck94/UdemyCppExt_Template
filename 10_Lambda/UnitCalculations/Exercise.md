@@ -1,6 +1,6 @@
 # Exercise
 
-Implement the following functions:
+Implement the following functions by using std::algorithms and lambda functions (except *compute_accelerations*):
 
 ```cpp
 void compute_velocities(const std::array<float, NUM_ENTRIES> long_velocities_mps,
@@ -23,19 +23,19 @@ void compute_rel_accelerations(const std::array<float, NUM_ENTRIES> &acceleratio
                                std::array<float, NUM_ENTRIES> &rel_accelerations_mps2);
 ```
 
-### Velocity
+## Velocity
 
 To compute the general velocity we can use the lateral and long. velocity:  
 $v = \sqrt{v_{lat}^2 + v_{long}^2}$
 
-### Heading Degree
+## Heading Degree
 
 To compute the heading degree we can use the following formula:  
 $d = \frac{\arctan2(v_{lat}, v_{long})}{\pi} * 180$
 
 Here is a small introduction to the vehicle heading: [link](http://street.umn.edu/VehControl/javahelp/HTML/Definition_of_Vehicle_Heading_and_Steeing_Angle.htm)  
 
-### Acceleration
+## Acceleration
 
 To estimate the acceleration we can use the current and previous velocity:  
 $v_f$: Current velocity  
@@ -43,7 +43,7 @@ $v_i$: Previous velocity
 $t$: Time span between those two velocities (in our case it is 50ms)  
 $a = \frac{v_{f} - v_{i}}{t}$
 
-### Relative Velocity/Acceleration
+## Relative Velocity/Acceleration
 
 This should be easy, no tips from my side ;)
 
