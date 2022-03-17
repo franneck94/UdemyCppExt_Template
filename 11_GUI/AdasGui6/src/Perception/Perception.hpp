@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AdTypes.hpp"
-#include "DataLoaderConstants.hpp"
+#include "DataLoaderTypes.hpp"
 
 void compute_ego_kinematics(EgoVehicleLogData &ego_vehicle_log_data);
 

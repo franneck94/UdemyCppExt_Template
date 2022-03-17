@@ -26,20 +26,20 @@ static auto input_cycle = int32_t{0};
 } // namespace
 
 
-void cycle(const std::size_t cycle_idx,
+void cycle(const std::uint32_t cycle_idx,
            VehicleInformationType &ego_vehicle,
            NeighborVehiclesType &vehicles,
            LanesInformationType &lanes)
 {
     load_cycle(cycle_idx, vehicles, ego_vehicle, lanes);
     const auto [long_request, lat_request] = compute_cycle(ego_vehicle, vehicles, lanes);
-    render_cycle(ego_vehicle, vehicles, lanes, long_request, lat_request);
+    render_cycle(ego_vehicle, vehicles, lanes, long_request, lat_request, cycle_idx);
 }
 
 void reset_state(const fs::path &ego_filepath,
                  const fs::path &vehicle_filepath,
                  const fs::path &lanes_filepath,
-                 std::size_t &cycle_idx,
+                 std::uint32_t &cycle_idx,
                  VehicleInformationType &ego_vehicle,
                  NeighborVehiclesType &vehicles,
                  LanesInformationType &lanes)
@@ -74,10 +74,10 @@ void end(GLFWwindow *const window)
 
 void plot_buttons()
 {
-    auto const offset_x = (WINDOWS_WIDTH - (6.0F * BUTTON_LINE_SHIFT)) * 0.5F;
+    auto const offset_x = (LEFT_WIDTH - (6.0F * BUTTON_LINE_SHIFT)) * 0.5F;
 
     ImGui::SetNextWindowPos(ImVec2(0.0F, BELOW_TABLE));
-    ImGui::SetNextWindowSize(ImVec2(WINDOWS_WIDTH, BUTTON_HEIGHT));
+    ImGui::SetNextWindowSize(ImVec2(LEFT_WIDTH, BUTTON_HEIGHT));
 
     const auto button_flags =
         (ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground |
@@ -124,12 +124,12 @@ void plot_buttons()
     }
 }
 
-void plot_cycle_number(const std::size_t cycle_idx)
+void plot_cycle_number(const std::uint32_t cycle_idx)
 {
-    auto const offset_x = (WINDOWS_WIDTH - (6.0F * BUTTON_LINE_SHIFT)) * 0.5F;
+    auto const offset_x = (LEFT_WIDTH - (6.0F * BUTTON_LINE_SHIFT)) * 0.5F;
 
     ImGui::SetNextWindowPos(ImVec2(0.0F, BELOW_BUTTON));
-    ImGui::SetNextWindowSize(ImVec2(WINDOWS_WIDTH, CYCLE_HEIGHT));
+    ImGui::SetNextWindowSize(ImVec2(LEFT_WIDTH, CYCLE_HEIGHT));
 
     if (ImGui::Begin("CycleWindow", nullptr, WINDOW_FLAGS_CLEAN))
     {
@@ -152,7 +152,7 @@ void cycle_function(const fs::path &ego_filepath,
                     const fs::path &lane_filepath,
                     GLFWwindow *const window)
 {
-    auto cycle_idx = std::size_t{0};
+    auto cycle_idx = std::uint32_t{0};
     auto ego_vehicle = VehicleInformationType{};
     auto vehicles = NeighborVehiclesType{};
     auto lanes = LanesInformationType{};
@@ -236,12 +236,12 @@ void cycle_function(const fs::path &ego_filepath,
         }
         else if (pressed_pause)
         {
-            render_cycle(ego_vehicle, vehicles, lanes, false, LaneAssociationType::NONE);
+            render_cycle(ego_vehicle, vehicles, lanes, false, LaneAssociationType::NONE, cycle_idx);
             is_playing = false;
         }
         else if (!is_playing)
         {
-            render_cycle(ego_vehicle, vehicles, lanes, false, LaneAssociationType::NONE);
+            render_cycle(ego_vehicle, vehicles, lanes, false, LaneAssociationType::NONE, cycle_idx);
         }
         else if (cycle_idx >= NUM_ITERATIONS)
         {

@@ -14,7 +14,7 @@ performance-*,
 -bugprone-easily-*
 '
 WarningsAsErrors: '*'
-HeaderFilterRegex: '.*'
+HeaderFilterRegex: 'src/**/*'
 AnalyzeTemporaryDtors: false
 FormatStyle:     none
 ...

@@ -130,7 +130,8 @@ LaneAssociationType get_lat_request(const VehicleInformationType &ego_vehicle,
     {
         switch (ego_vehicle.lane)
         {
-        case LaneAssociationType::RIGHT: /* fall-thorugh */
+        case LaneAssociationType::RIGHT:
+            [[fallthrough]];
         case LaneAssociationType::LEFT:
         {
             const LaneAssociationType target_lane = LaneAssociationType::CENTER;

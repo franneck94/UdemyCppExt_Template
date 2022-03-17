@@ -10,4 +10,4 @@ target_link_libraries(${PERCEPTION_LIB} PUBLIC
     ${ADAS_LIB}
     ${DATA_LOADER_LIB}
     ${UTIL_LIB})
-target_set_warnings(TARGET ${PERCEPTION_LIB} ENABLE ON AS_ERROR ON)
+target_set_warnings(TARGET ${PERCEPTION_LIB} ENABLE ON AS_ERROR OFF)
