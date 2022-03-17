@@ -55,54 +55,31 @@ This should be easy, no tips from my side ;)
 #include <cmath>
 
 #include "Units.hpp"
+#include "utils.hpp"
 
 constexpr std::size_t NUM_ENTRIES = 3;
-constexpr std::uint32_t TIME_SPAN = 50;
+constexpr std::uint32_t TIME_SPAN_MS = 50;
 
 void compute_velocities(const std::array<float, NUM_ENTRIES> long_velocities_mps,
                         const std::array<float, NUM_ENTRIES> lat_velocities_mps,
-                        std::array<float, NUM_ENTRIES> &velocities_mps)
-{
-    (void)long_velocities_mps;
-    (void)lat_velocities_mps;
-    (void)velocities_mps;
-}
+                        std::array<float, NUM_ENTRIES> &velocities_mps);
 
 void compute_heading_degrees(const std::array<float, NUM_ENTRIES> long_velocities_mps,
                              const std::array<float, NUM_ENTRIES> lat_velocities_mps,
-                             std::array<float, NUM_ENTRIES> &heading_degrees)
-{
-    (void)long_velocities_mps;
-    (void)lat_velocities_mps;
-    (void)heading_degrees;
-}
+                             std::array<float, NUM_ENTRIES> &heading_degrees);
 
 void compute_accelerations(const std::array<float, NUM_ENTRIES> &velocities_mps,
-                           std::array<float, NUM_ENTRIES> &accelerations_mps2)
-{
-    (void)velocities_mps;
-    (void)accelerations_mps2;
-}
+                           std::array<float, NUM_ENTRIES> &accelerations_mps2);
 
 void compute_rel_velocities(const std::array<float, NUM_ENTRIES> &velocities_mps,
                             const std::array<float, NUM_ENTRIES> &ego_velocities_mps,
-                            std::array<float, NUM_ENTRIES> &rel_velocities_mps)
-{
-    (void)velocities_mps;
-    (void)ego_velocities_mps;
-    (void)rel_velocities_mps;
-}
+                            std::array<float, NUM_ENTRIES> &rel_velocities_mps);
 
 void compute_rel_accelerations(const std::array<float, NUM_ENTRIES> &accelerations_mps2,
                                const std::array<float, NUM_ENTRIES> &ego_accelerations_mps2,
-                               std::array<float, NUM_ENTRIES> &rel_accelerations_mps2)
-{
-    (void)accelerations_mps2;
-    (void)ego_accelerations_mps2;
-    (void)rel_accelerations_mps2;
-}
+                               std::array<float, NUM_ENTRIES> &rel_accelerations_mps2);
 
-int main(int argc, char **argv)
+int main()
 {
     const auto ego_velocities_mps = std::array<float, NUM_ENTRIES>{25.0F, 25.6F, 26.2F};
     const auto ego_accelerations_mps2 = std::array<float, NUM_ENTRIES>{0.0F, 0.6F, 0.6F};
@@ -121,5 +98,16 @@ int main(int argc, char **argv)
     compute_accelerations(velocities_mps, accelerations_mps2);
     compute_rel_velocities(long_velocities_mps, ego_velocities_mps, rel_velocities_mps);
     compute_rel_accelerations(accelerations_mps2, ego_accelerations_mps2, rel_accelerations_mps2);
+
+    std::cout << "velocities_mps: \n";
+    print_array(velocities_mps);
+    std::cout << "heading_degrees: \n";
+    print_array(heading_degrees);
+    std::cout << "accelerations_mps2: \n";
+    print_array(accelerations_mps2);
+    std::cout << "rel_velocities_mps: \n";
+    print_array(rel_velocities_mps);
+    std::cout << "rel_accelerations_mps2: \n";
+    print_array(rel_accelerations_mps2);
 }
 ```
