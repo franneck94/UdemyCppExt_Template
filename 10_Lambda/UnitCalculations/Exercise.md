@@ -52,6 +52,9 @@ This should be easy, no tips from my side ;)
 ```cpp
 #include <algorithm>
 #include <array>
+#include <cmath>
+
+#include "Units.hpp"
 
 constexpr std::size_t NUM_ENTRIES = 3;
 constexpr std::uint32_t TIME_SPAN = 50;
