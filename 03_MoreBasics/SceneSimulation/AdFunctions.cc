@@ -57,22 +57,3 @@ void print_neighbor_vehicles(const NeighborVehiclesType &vehicles)
     print_vehicle(vehicles.vehicles_right_lane[0]);
     print_vehicle(vehicles.vehicles_right_lane[1]);
 }
-
-void compute_future_distance(VehicleType &vehicle, const float ego_driven_distance, const float seconds)
-{
-    const float driven_distance = vehicle.speed_mps * seconds;
-
-    vehicle.distance_m += (driven_distance - ego_driven_distance);
-}
-
-void compute_future_state(const VehicleType &ego_vehicle, NeighborVehiclesType &vehicles, const float seconds)
-{
-    const float ego_driven_distance = ego_vehicle.speed_mps * seconds;
-
-    compute_future_distance(vehicles.vehicles_left_lane[0], ego_driven_distance, seconds);
-    compute_future_distance(vehicles.vehicles_left_lane[1], ego_driven_distance, seconds);
-    compute_future_distance(vehicles.vehicles_center_lane[0], ego_driven_distance, seconds);
-    compute_future_distance(vehicles.vehicles_center_lane[1], ego_driven_distance, seconds);
-    compute_future_distance(vehicles.vehicles_right_lane[0], ego_driven_distance, seconds);
-    compute_future_distance(vehicles.vehicles_right_lane[1], ego_driven_distance, seconds);
-}
