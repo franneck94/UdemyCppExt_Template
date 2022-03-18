@@ -216,7 +216,7 @@ def animation():
 
 
 def main() -> int:
-    animation()
+    # animation()
     lane_data = generate_data(num_frames=1000)
     with open(DATA_FILEPATH, "w") as file_object:
         json.dump(lane_data, file_object)

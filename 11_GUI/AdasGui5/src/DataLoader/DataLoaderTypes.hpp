@@ -8,7 +8,7 @@
 struct EgoVehicleLogData
 {
     std::array<LaneAssociationType, NUM_ITERATIONS> lanes;
-    std::array<float, NUM_ITERATIONS> speeds_mps;
+    std::array<float, NUM_ITERATIONS> velocities_mps;
 };
 
 struct VehicleLogData
@@ -19,7 +19,7 @@ struct VehicleLogData
     float height_m;
 
     std::array<LaneAssociationType, NUM_ITERATIONS> lanes;
-    std::array<float, NUM_ITERATIONS> speeds_mps;
+    std::array<float, NUM_ITERATIONS> velocities_mps;
     std::array<float, NUM_ITERATIONS> long_distances_m;
     std::array<float, NUM_ITERATIONS> lat_distances_m;
 };

@@ -6,23 +6,13 @@
 #include "AdFunctions.hpp"
 #include "AdTypes.hpp"
 
-float kph_to_mps(const float kph)
-{
-    return kph / 3.6F;
-}
-
-float mps_to_kph(const float mps)
-{
-    return mps * 3.6F;
-}
-
 void decrease_speed(VehicleInformationType &ego_vehicle)
 {
-    const auto decrease = ego_vehicle.speed_mps * LONGITUDINAL_DIFFERENCE_PERCENTAGE;
+    const auto decrease = ego_vehicle.velocity_mps * LONGITUDINAL_DIFFERENCE_PERCENTAGE;
 
-    if ((ego_vehicle.speed_mps - decrease) >= 0.0F)
+    if ((ego_vehicle.velocity_mps - decrease) >= 0.0F)
     {
-        ego_vehicle.speed_mps -= decrease;
+        ego_vehicle.velocity_mps -= decrease;
     }
 }
 
@@ -110,7 +100,7 @@ bool get_longitudinal_request(const VehicleInformationType *const front_vehicle,
         return false;
     }
 
-    const auto minimal_distance_m = mps_to_kph(ego_vehicle.speed_mps) / 2.0F;
+    const auto minimal_distance_m = mps_to_kph(ego_vehicle.velocity_mps) / 2.0F;
     const auto front_distance_m = front_vehicle->long_distance_m;
 
     if (front_distance_m < minimal_distance_m)
@@ -132,14 +122,15 @@ LaneAssociationType get_lat_request(const VehicleInformationType &ego_vehicle,
     const auto ego_lane_vehicles = get_vehicles_on_lane(ego_vehicle.lane, vehicles);
     const auto rear_vehicle = get_closing_vehicle(ego_lane_vehicles);
 
-    const auto minimal_distance_m = mps_to_kph(ego_vehicle.speed_mps) / 5.0F;
+    const auto minimal_distance_m = mps_to_kph(ego_vehicle.velocity_mps) / 5.0F;
     const auto rear_distance_m = std::abs(rear_vehicle->long_distance_m);
 
     if (rear_distance_m < minimal_distance_m)
     {
         switch (ego_vehicle.lane)
         {
-        case LaneAssociationType::RIGHT: /* fall-thorugh */
+        case LaneAssociationType::RIGHT:
+            [[fallthrough]];
         case LaneAssociationType::LEFT:
         {
             const LaneAssociationType target_lane = LaneAssociationType::CENTER;

@@ -6,10 +6,6 @@
 
 #include "AdTypes.hpp"
 
-float kph_to_mps(const float kph);
-
-float mps_to_kph(const float mps);
-
 std::vector<const VehicleInformationType *> get_vehicles_on_lane(const LaneAssociationType lane,
                                                                  const NeighborVehiclesType &vehicles);
 

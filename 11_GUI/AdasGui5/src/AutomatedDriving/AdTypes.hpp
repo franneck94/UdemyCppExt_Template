@@ -30,7 +30,7 @@ struct VehicleInformationType
     float height_m;
 
     LaneAssociationType lane;
-    float speed_mps;
+    float velocity_mps;
     float long_distance_m;
     float lat_distance_m;
 };

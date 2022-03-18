@@ -95,25 +95,26 @@ Note: The colors are already defined in the RenderConstants.hpp
 
 Hint:
 
-Function for the lane class coloring is:
+Function for the lane class coloring the following function can be used to plot a rectangle:
 
 ```cpp
-ImPlot::SetNextFillStyle(color);
-ImPlot::PlotShaded("label", x_data, y_data, 2, offset); // offset can be used to "shift" the shaded area on the y-axis
+void plot_shaded_rect(const float x1,
+                      const float x2,
+                      const float y1,
+                      const float y2,
+                      const float y3,
+                      const float y4,
+                      std::string_view label)
+{
+    const auto num_points = size_t{2};
+
+    const auto xs = std::array<float, num_points>{x1, x2};
+    const auto ys1 = std::array<float, num_points>{y1, y2};
+    const auto ys2 = std::array<float, num_points>{y3, y4};
+
+    ImPlot::PlotShaded(label.data(), xs.data(), ys1.data(), ys2.data(), num_points);
+}
 ```
-
-For example if we want to plot a shaded rect with the two points:
-
-$P_1 = (0.0, 5.0)$, $P_2 = (10.0, 5.0)$
-
-```cpp
-float x_data[] = {0.0F, 10.0F};
-float y_data[] = {5.0F, 5.0F};
-ImPlot::SetNextFillStyle(GREEN_BACKGROUND);
-ImPlot::PlotShaded("label", x_data, y_data, 2, 0.0F);
-```
-
-The result is:
 
 ![Example](./media/ShadedRect.png)
 

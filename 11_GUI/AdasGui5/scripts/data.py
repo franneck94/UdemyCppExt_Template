@@ -73,20 +73,20 @@ def generate_ego_vehicle_data() -> Dict[str, list]:
 
     ego_vehicle_data: Dict[str, list] = {
         "Lane": [1 for _ in range(NUM_ITERATIONS)],
-        "Speed": [0.0 for _ in range(NUM_ITERATIONS)],
+        "Velocity": [0.0 for _ in range(NUM_ITERATIONS)],
     }
 
     ego_vehicle_data["Lane"][0] = start_lane
-    ego_vehicle_data["Speed"][0] = start_speed_mps
+    ego_vehicle_data["Velocity"][0] = start_speed_mps
 
     for i in range(1, NUM_ITERATIONS):
         ego_vehicle_data["Lane"][i] = int(LaneAssociation.CENTER.value)
         eps = np.random.normal(loc=0.0, scale=0.5)
-        new_speed = ego_vehicle_data["Speed"][i - 1] + eps
+        new_speed = ego_vehicle_data["Velocity"][i - 1] + eps
         if new_speed >= 25.0 and new_speed <= 40.0:
-            ego_vehicle_data["Speed"][i] = round(new_speed, 3)
+            ego_vehicle_data["Velocity"][i] = round(new_speed, 3)
         else:
-            ego_vehicle_data["Speed"][i] = ego_vehicle_data["Speed"][i - 1]
+            ego_vehicle_data["Velocity"][i] = ego_vehicle_data["Velocity"][i - 1]
 
     return ego_vehicle_data
 
@@ -156,7 +156,7 @@ def generate_vehicle_data(id_: int, ego_speed_mps) -> dict:
         "LongDistance": long_distances,
         "LatDistance": lat_distances,
         "ObjectClass": OBJECT_CLASSES[id_],
-        "Speed": speed_data,
+        "Velocity": speed_data,
         "Width": OBJECT_WIDTHS[OBJECT_CLASSES[id_]],
         "Height": OBJECT_HEIGHTS[OBJECT_CLASSES[id_]],
     }
@@ -173,7 +173,7 @@ def main() -> int:
         idx: {} for idx in range(NUM_VEHICLES)
     }
     for i in range(NUM_VEHICLES):
-        data = generate_vehicle_data(i, ego_vehicle_data["Speed"])
+        data = generate_vehicle_data(i, ego_vehicle_data["Velocity"])
         vehicle_datas[i] = data
 
     with open(VEHICLE_FILEPATH, "w") as file_object:
