@@ -15,22 +15,24 @@
 
 namespace
 {
-static constexpr const char *const LANE_NAMES[] = {
+constexpr auto NUM_LANES = std::size_t{4};
+static constexpr auto LANE_NAMES = std::array<const char *, NUM_LANES>{
     "Left",
     "Center",
     "Right",
     "None",
 };
 
-static constexpr const char *const OBJECT_NAMES[] = {
+constexpr auto NUM_OBJECT_NAMES = std::size_t{4};
+static constexpr auto OBJECT_NAMES = std::array<const char *, NUM_OBJECT_NAMES>{
     "Car",
     "Truck",
     "Motorbike",
     "None",
 };
 
-constexpr std::size_t NUM_VALUES = 7;
-static constexpr const char *const VALUE_NAMES[NUM_VALUES] = {
+constexpr auto NUM_VALUES = std::size_t{7};
+static constexpr auto VALUE_NAMES = std::array<const char *, NUM_VALUES>{
     "long_velocity_mps",
     "lat_velocity_mps",
     "velocity_mps",
@@ -40,8 +42,16 @@ static constexpr const char *const VALUE_NAMES[NUM_VALUES] = {
     "rel_acceleration_mps2",
 };
 
-static constexpr auto table_rows = MAX_NUM_VEHICLES + 1U;
-static auto plot_vehicles = std::array<bool, table_rows>{true, true, true, true, true, true, true};
+static constexpr auto TABLE_ROWS = MAX_NUM_VEHICLES + 1U;
+static auto PLOT_VEHICLE_FLAGS = std::array<bool, TABLE_ROWS>{true, true, true, true, true, true, true};
+
+static constexpr auto NUM_VEHICLE_CLASSES = std::size_t{3};
+static const auto VEHICLE_COLORS =
+    std::array<ImVec4, NUM_VEHICLE_CLASSES>{BLUE_MARKER, RED_MARKER, GREEN_MARKER};
+
+static constexpr auto NUM_LANE_CLASSES = std::size_t{4};
+static const auto LANE_CLASS_COLORS =
+    std::array<ImVec4, NUM_LANE_CLASSES>{GREEN_BACKGROUND, BLUE_BACKGROUND, BLUE_BACKGROUND, RED_BACKGROUND};
 } // namespace
 
 void plot_vehicle_marker(const VehicleInformationType &vehicle, const ImVec4 &color, std::string_view label)
@@ -167,33 +177,13 @@ void plot_lane_boundary(const Polynomial3rdDegreeType &polynomial,
 
 void plot_lane_class(const LaneInformationType &lane)
 {
-    auto color = ImVec4{};
-
-    switch (lane.lane_class)
-    {
-    case LaneClassType::NORMAL:
-    {
-        color = GREEN_BACKGROUND;
-        break;
-    }
-    case LaneClassType::ACCELERATION:
-    case LaneClassType::DECELERATION:
-    {
-        color = BLUE_BACKGROUND;
-        break;
-    }
-    case LaneClassType::HARD_SHOULDER:
-    {
-        color = RED_BACKGROUND;
-        break;
-    }
-    default:
+    if (LaneClassType::NONE == lane.lane_class)
     {
         return;
     }
-    }
 
     constexpr auto num_points = size_t{2};
+    const auto color = LANE_CLASS_COLORS[static_cast<std::int32_t>(lane.lane_class)];
 
     const auto offset_m = lane.right_polynomial.d;
     const auto min_view_range = std::min(lane.left_view_range_m, lane.right_view_range_m);
@@ -209,7 +199,7 @@ void plot_lanes_vehicles(const std::array<VehicleInformationType, MAX_NUM_VEHICL
 {
     for (std::size_t i = 0; i < MAX_NUM_VEHICLES; i++)
     {
-        if (false == plot_vehicles[i + 1U])
+        if (false == PLOT_VEHICLE_FLAGS[i + 1U])
         {
             continue;
         }
@@ -217,31 +207,12 @@ void plot_lanes_vehicles(const std::array<VehicleInformationType, MAX_NUM_VEHICL
         const auto xs = vehicles[i].long_distance_m;
         const auto ys = vehicles[i].lat_distance_m;
 
-        auto color = ImVec4{};
-
-        switch (vehicles[i].object_class)
-        {
-        case ObjectClassType::CAR:
-        {
-            color = BLUE_MARKER;
-            break;
-        }
-        case ObjectClassType::TRUCK:
-        {
-            color = RED_MARKER;
-            break;
-        }
-        case ObjectClassType::MOTORBIKE:
-        {
-            color = GREEN_MARKER;
-            break;
-        }
-        case ObjectClassType::NONE:
-        default:
+        if (ObjectClassType::NONE == vehicles[i].object_class)
         {
             return;
         }
-        }
+
+        const auto color = VEHICLE_COLORS[static_cast<std::int32_t>(vehicles[i].object_class)];
 
         const auto label = std::string{"vehicle"} + std::to_string(i);
         plot_vehicle_marker(vehicles[i], color, label);
@@ -255,7 +226,7 @@ void plot_lanes_ego_vehicle(const VehicleInformationType &ego_vehicle,
                             const bool long_request,
                             const LaneAssociationType lat_request)
 {
-    if (false == plot_vehicles[0])
+    if (false == PLOT_VEHICLE_FLAGS[0])
     {
         return;
     }
@@ -269,6 +240,11 @@ void plot_lanes_ego_vehicle(const VehicleInformationType &ego_vehicle,
 
         ImPlot::SetNextMarkerStyle(ImPlotMarker_Left, VEHICLE_SCATTER_SIZE / 1.5F, RED_MARKER);
         ImPlot::PlotScatter("longReq", &long_req_pos, &ego_vehicle.lat_distance_m, 1);
+    }
+
+    if ((LaneAssociationType::NONE == lat_request) || (lat_request == ego_vehicle.lane))
+    {
+        return;
     }
 
     const auto lat_request_int = static_cast<std::int32_t>(lat_request);
@@ -351,7 +327,7 @@ void plot_vehicle_in_table(const VehicleInformationType &vehicle, bool &plot_veh
     ImGui::Checkbox(label.data(), &plot_vehicle);
 
     plot_table_cell_value("%d", vehicle.id);
-    plot_table_cell_value("%s", OBJECT_NAMES[static_cast<std::uint32_t>(vehicle.object_class)]);
+    plot_table_cell_value("%s", OBJECT_NAMES[static_cast<std::int32_t>(vehicle.object_class)]);
     plot_table_cell_value("%s", LANE_NAMES[static_cast<std::int32_t>(vehicle.lane)]);
     plot_table_cell_value("%.4f", vehicle.long_distance_m);
     plot_table_cell_value("%.4f", vehicle.lat_distance_m);
@@ -404,11 +380,11 @@ void plot_table(const VehicleInformationType &ego_vehicle, const NeighborVehicle
             plot_table_cell_value("%s", "RelVel:");
             plot_table_cell_value("%s", "RelAccel:");
 
-            plot_vehicle_in_table(ego_vehicle, plot_vehicles[0]);
+            plot_vehicle_in_table(ego_vehicle, PLOT_VEHICLE_FLAGS[0]);
 
             for (std::uint32_t idx = 0; idx < MAX_NUM_VEHICLES; ++idx)
             {
-                plot_vehicle_in_table(vehicles[idx], plot_vehicles[idx + 1U]);
+                plot_vehicle_in_table(vehicles[idx], PLOT_VEHICLE_FLAGS[idx + 1U]);
             }
 
             ImGui::EndTable();

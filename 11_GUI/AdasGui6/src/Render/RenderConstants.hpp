@@ -28,7 +28,7 @@ const auto BLUE_BACKGROUND = ImVec4(0.0F, 0.0F, 0.8F, 0.2F);
 
 /* LANE PLOT SETTINGS */
 constexpr auto LANE_PLOT_HEIGHT{3.0F * 200.0F};
-constexpr auto LANE_PLOT_WIDTH{WINDOWS_WIDTH - 15.0F};
+constexpr auto LANE_PLOT_WIDTH{LEFT_WIDTH - 15.0F};
 constexpr auto LANE_PLOT_TOTAL_HEIGHT{LANE_PLOT_HEIGHT};
 constexpr auto BELOW_LANES{LANE_PLOT_TOTAL_HEIGHT};
 constexpr auto LINE_WIDTH{3.0F};
