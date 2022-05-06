@@ -17,7 +17,7 @@ Read in the text of the local **text.txt** file, the **readFile** is defined in 
 ```cpp
 #include "utils.hpp"
 
-auto text = readFile("C:/Users/Jan/Dropbox/_Coding/Udemy_CppExt/5_String/SplitWords/text.txt");
+auto text = readFile("C:/Users/Jan/OneDrive/_Coding/Udemy_CppExt/5_String/SplitWords/text.txt");
 ```
 
 - clean_text
@@ -35,7 +35,7 @@ E.g. "Dolor sit vero" => ["Dolor", "sit", "vero"]
 int main()
 {
     auto text =
-        readFile("C:/Users/Jan/Dropbox/_Coding/udemy_cppExt/6_Container/word_count/text.txt");
+        readFile("C:/Users/Jan/OneDrive/_Coding/udemy_cppExt/6_Container/word_count/text.txt");
     std::cout << text << std::endl << '\n';
 
     cleanText(text);
